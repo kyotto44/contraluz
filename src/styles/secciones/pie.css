@@ -1,0 +1,10 @@
+.pie {
+  padding: var(--espacio-6) var(--margen) calc(var(--espacio-6) + env(safe-area-inset-bottom, 0px));
+  border-top: var(--linea) solid var(--tinta-linea);
+  font-size: var(--texto-chico);
+  color: var(--hielo-suave);
+}
+
+.pie p {
+  max-width: var(--medida);
+}

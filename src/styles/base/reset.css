@@ -1,0 +1,92 @@
+/* Reset mínimo y ajustes para que se sienta nativo en el celular. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;      /* sin agrandar letras al girar el celular */
+  -webkit-tap-highlight-color: transparent; /* sin el destello gris al tocar; cada control tiene su :active */
+  text-size-adjust: 100%;
+  scroll-padding-top: 5rem;            /* las anclas no quedan debajo de la cabecera */
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+figure,
+blockquote,
+dl,
+dd,
+ul,
+ol {
+  margin: 0;
+}
+
+ul[role="list"],
+ol[role="list"] {
+  padding: 0;
+  list-style: none;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+
+/* iOS hace zoom al enfocar un campo con letra menor a 16px y no vuelve a alejar. */
+input,
+textarea,
+select {
+  font-size: max(16px, 1rem);
+}
+
+/* Toques inmediatos: sin la espera del doble toque, y sin seleccionar el texto de un control al mantenerlo. */
+a,
+button,
+[role="button"],
+label,
+summary {
+  touch-action: manipulation;
+}
+
+button,
+[role="button"],
+summary {
+  -webkit-user-select: none;
+  user-select: none;
+  cursor: pointer;
+}
+
+button {
+  background: none;
+  border: 0;
+  padding: 0;
+}

@@ -1,0 +1,28 @@
+/* Marcador provisional de la portada: muestra las fuentes y la luz mientras se construye la entrada. */
+
+.base {
+  container-type: inline-size;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: end;
+  gap: var(--espacio-5);
+  min-height: calc(100svh - 4rem);
+  padding: var(--espacio-8) var(--margen);
+  /* El texto vive en la zona de rojo pleno: tinta sobre láser da 5,4:1. */
+  background: radial-gradient(ellipse 120% 75% at 50% 100%, var(--laser) 0%, var(--laser) 45%, var(--laser-hondo) 72%, var(--tinta) 100%);
+}
+
+.base__titulo {
+  /* A 150% de ancho la palabra mide unas 9,4 veces su tamaño: se ajusta al ancho disponible. */
+  font-size: min(var(--titulo-1), 10cqi);
+  font-stretch: 150%;
+  text-transform: uppercase;
+  color: var(--tinta);
+}
+
+.base__texto {
+  max-width: var(--medida);
+  font-size: var(--texto-grande);
+  color: var(--sobre-laser);
+  font-weight: 600;
+}

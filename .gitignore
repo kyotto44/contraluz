@@ -1,0 +1,31 @@
+# Archivos que no se suben a GitHub
+
+# Claves y configuración local: nunca se suben.
+# Solo .env.example (con nombres de variables, sin valores) entra al repositorio.
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Netlify CLI (guarda el id del sitio en tu equipo)
+.netlify/
+
+# Dependencias y compilado: se regeneran con npm install y npm run build
+node_modules/
+dist/
+
+# Herramientas de diseño y de Claude Code locales
+.impeccable/
+.claude/
+
+# Registros
+*.log
+npm-debug.log*
+
+# Editor y sistema operativo
+.vscode/
+.idea/
+Thumbs.db
+desktop.ini
+.DS_Store

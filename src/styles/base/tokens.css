@@ -1,0 +1,58 @@
+/* Tokens de Contraluz.
+   El sitio tiene un solo tema, oscuro: se usa de noche, en el celular, con poca luz.
+   La luz roja no es un acento: ocupa regiones enteras, y las siluetas van en tinta contra ella. */
+
+:root {
+  color-scheme: dark;
+
+  /* Color */
+  --tinta: #06080f;          /* fondo y siluetas */
+  --tinta-alta: #0d111c;     /* superficies elevadas sobre la tinta */
+  --tinta-linea: #232a3b;    /* líneas sobre tinta */
+  --hielo: #e8ecf5;          /* texto principal */
+  --hielo-suave: #aab3c7;    /* texto secundario sobre tinta (9,4:1) */
+  --laser: #ff2d46;          /* la luz de la cabina */
+  --laser-hondo: #8a0f22;    /* la misma luz apagándose en la neblina */
+  --laser-nucleo: #ffd6db;   /* el centro quemado de la luz */
+  --sobre-laser: #06080f;    /* texto sobre rojo láser (5,4:1); el blanco no llega a 4,5:1 */
+
+  /* Tipografía */
+  --fuente-titulo: "Anybody Variable", "Arial Narrow", sans-serif;
+  --fuente-texto: "Manrope Variable", "Segoe UI", system-ui, sans-serif;
+
+  --texto-chico: 0.875rem;
+  --texto: 1.0625rem;
+  --texto-grande: clamp(1.125rem, 1rem + 0.5vw, 1.375rem);
+  --titulo-3: clamp(1.375rem, 1.1rem + 1vw, 1.875rem);
+  --titulo-2: clamp(2.25rem, 1.4rem + 3.6vw, 4.5rem);
+  --titulo-1: clamp(3rem, 1.6rem + 6vw, 6rem);
+
+  /* Espacio: un solo ritmo para toda la página */
+  --espacio-1: 0.25rem;
+  --espacio-2: 0.5rem;
+  --espacio-3: 0.75rem;
+  --espacio-4: 1rem;
+  --espacio-5: 1.5rem;
+  --espacio-6: 2rem;
+  --espacio-7: 3rem;
+  --espacio-8: 5rem;
+  --espacio-9: 8rem;
+  --margen: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --ancho-max: 90rem;
+  --medida: 65ch;
+
+  /* Forma: esquinas casi rectas en todo, sin píldoras */
+  --radio: 4px;
+  --linea: 1px;
+
+  /* Movimiento */
+  --curva-salida: cubic-bezier(0.23, 1, 0.32, 1);     /* entradas y respuesta a la interacción */
+  --curva-recorrido: cubic-bezier(0.77, 0, 0.175, 1); /* algo que se mueve dentro de la pantalla */
+  --dur-toque: 140ms;     /* presionar un botón */
+  --dur-ui: 200ms;        /* hover, menús, cambios de estado */
+  --dur-revelado: 900ms;  /* una sección que entra a escena */
+
+  /* Capas */
+  --capa-cabecera: 10;
+  --capa-saltar: 20;
+}

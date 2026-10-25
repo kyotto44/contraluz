@@ -1,0 +1,8 @@
+@import "./base/tokens.css";
+@import "./base/reset.css";
+@import "./base/global.css";
+
+@import "./componentes/cabecera.css";
+
+@import "./secciones/base.css";
+@import "./secciones/pie.css";
