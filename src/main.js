@@ -8,10 +8,12 @@ import { iniciarAgenda } from "./js/modulos/agenda.js";
 import { iniciarReservas } from "./js/modulos/reservas.js";
 import { iniciarResidentes } from "./js/modulos/residentes.js";
 import { revelar } from "./js/modulos/revelar.js";
+import { iniciarUbicacion } from "./js/modulos/ubicacion.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
 iniciarUmbral();
 iniciarAgenda();
 iniciarResidentes();
 iniciarReservas();
+iniciarUbicacion();
 revelar(document.querySelector(".espacios__lista"));

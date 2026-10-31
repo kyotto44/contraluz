@@ -20,6 +20,7 @@
           <li><a href="#agenda">Agenda</a></li>
           <li><a href="#residentes">Residentes</a></li>
           <li><a href="#espacios">Espacios</a></li>
+          <li><a href="#ubicacion">Ubicación</a></li>
           <li><a class="boton boton--chico" href="#reservas">Reservar</a></li>
         </ul>
       </nav>
@@ -301,10 +302,58 @@
           </div>
         </div>
       </section>
+
+      <section class="ubicacion" id="ubicacion" aria-labelledby="ubicacion-titulo">
+        <div class="ubicacion__datos">
+          <h2 id="ubicacion-titulo">Ubicación</h2>
+          <address class="ubicacion__direccion">Carrera 13 # 00-00<br />Chapinero, Bogotá</address>
+          <p class="ubicacion__nota">La dirección es inventada, como el club.</p>
+
+          <p class="ubicacion__estado" hidden></p>
+          <dl class="horario">
+            <div class="horario__fila" data-dia="4"><dt>Jueves</dt><dd>10 p. m. a 3 a. m.</dd></div>
+            <div class="horario__fila" data-dia="5"><dt>Viernes</dt><dd>10 p. m. a 3 a. m.</dd></div>
+            <div class="horario__fila" data-dia="6"><dt>Sábado</dt><dd>10 p. m. a 3 a. m.</dd></div>
+            <div class="horario__fila"><dt>Domingo a miércoles</dt><dd>Cerrado</dd></div>
+          </dl>
+          <p class="ubicacion__nota">Solo mayores de 18 años, con documento.</p>
+        </div>
+
+        <svg class="mapa" viewBox="0 0 600 600" role="img" aria-label="Mapa esquemático de calles con el club marcado en el centro. No corresponde a un lugar real.">
+          <g class="mapa__calles">
+            <path d="M-20 90 620 40M-20 210 620 160M-20 330 620 280M-20 450 620 400M-20 570 620 520" />
+            <path d="M70 -20 110 620M190 -20 230 620M430 -20 470 620M550 -20 590 620" />
+          </g>
+          <path class="mapa__via" d="M310 -20 350 620" />
+          <g class="mapa__haces">
+            <path d="M330 300 40 -20M330 300 620 60M330 300 610 620" />
+          </g>
+          <circle class="mapa__halo" cx="330" cy="300" r="34" />
+          <circle class="mapa__punto" cx="330" cy="300" r="9" />
+          <text class="mapa__nombre" x="352" y="288">Contraluz</text>
+          <text class="mapa__calle" x="360" y="600" transform="rotate(-86 360 600)">Carrera 13</text>
+        </svg>
+      </section>
     </main>
 
     <footer class="pie">
-      <p>Contraluz no existe: es un proyecto de portafolio. Noches, DJs, precios y dirección son de demostración.</p>
+      <div class="pie__columnas">
+        <nav aria-label="Secundaria">
+          <ul class="pie__enlaces" role="list">
+            <li><a href="#agenda">Agenda</a></li>
+            <li><a href="#residentes">Residentes</a></li>
+            <li><a href="#espacios">Espacios</a></li>
+            <li><a href="#reservas">Reservar</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+          </ul>
+        </nav>
+        <div class="pie__notas">
+          <p>Contraluz no existe: es un proyecto de portafolio. Noches, DJs, precios y dirección son de demostración.</p>
+          <p>Fotos de <a href="https://unsplash.com/es/fotos/iDF0FXUxGhE">Viktor Forgacs</a>, <a href="https://unsplash.com/es/fotos/pxCGO2S9Db0">Jorik Kleen</a>, <a href="https://unsplash.com/es/fotos/YrtFlrLo2DQ">Marcela Laskoski</a>, <a href="https://unsplash.com/es/fotos/HYovA7yPPvI">Pavel Lozovikov</a>, <a href="https://unsplash.com/es/fotos/K_JK5mpSLl0">Lucas Chizzali</a>, <a href="https://unsplash.com/es/fotos/Boo4sKszgOI">Zahotoo</a> y <a href="https://unsplash.com/es/fotos/LOV7Gbmgm30">Kelvin Moquete</a>, en Unsplash, con color y recorte modificados.</p>
+          <p><a href="https://github.com/kyotto44/contraluz">Código en GitHub</a></p>
+        </div>
+      </div>
+      <p class="pie__marca" aria-hidden="true">Contraluz</p>
     </footer>
   </body>
 </html>

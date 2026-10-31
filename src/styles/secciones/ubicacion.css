@@ -1,0 +1,153 @@
+/* Ubicación: lo que se necesita para llegar, sin adornos, y un mapa dibujado con las líneas
+   de los láseres. No es un mapa externo: la CSP no carga nada de otros dominios. */
+
+.ubicacion {
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  display: grid;
+  gap: var(--espacio-7);
+  padding: var(--espacio-9) var(--borde);
+  border-top: var(--linea) solid var(--tinta-linea);
+}
+
+.ubicacion__datos {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--espacio-4);
+  min-width: 0;
+}
+
+.ubicacion h2 {
+  margin-bottom: var(--espacio-4);
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.ubicacion__direccion {
+  font-family: var(--fuente-titulo);
+  font-size: var(--titulo-3);
+  font-style: normal;
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1.15;
+}
+
+.ubicacion__nota {
+  font-size: var(--texto-chico);
+  color: var(--hielo-suave);
+}
+
+.ubicacion__estado {
+  margin-top: var(--espacio-5);
+  font-weight: 700;
+}
+
+.ubicacion__estado[hidden] {
+  display: none;
+}
+
+.ubicacion__estado--abierto {
+  color: var(--laser-nucleo);
+}
+
+.horario {
+  width: 100%;
+  max-width: 28rem;
+  margin: 0;
+}
+
+.horario__fila {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 0 var(--espacio-4);
+  padding-block: var(--espacio-3);
+  border-top: var(--linea) solid var(--tinta-linea);
+}
+
+.horario__fila:last-child {
+  border-bottom: var(--linea) solid var(--tinta-linea);
+}
+
+.horario dt {
+  font-weight: 700;
+}
+
+.horario dd {
+  margin: 0;
+  color: var(--hielo-suave);
+}
+
+/* No depende solo del color: el aviso de arriba dice lo mismo con palabras. */
+.horario__fila--hoy dt,
+.horario__fila--hoy dd {
+  color: var(--laser-nucleo);
+}
+
+.mapa {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--tinta-alta);
+  border-radius: var(--radio);
+}
+
+.mapa path,
+.mapa circle {
+  fill: none;
+}
+
+.mapa__calles {
+  stroke: var(--tinta-linea);
+  stroke-width: 2;
+}
+
+.mapa__via {
+  stroke: var(--tinta-borde);
+  stroke-width: 5;
+}
+
+.mapa__haces {
+  stroke: var(--laser);
+  stroke-width: 1;
+  opacity: 0.55;
+}
+
+.mapa .mapa__halo {
+  fill: var(--laser);
+  opacity: 0.22;
+}
+
+.mapa .mapa__punto {
+  fill: var(--laser-nucleo);
+}
+
+.mapa text {
+  fill: var(--hielo);
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  font-stretch: 125%;
+}
+
+.mapa__nombre {
+  font-size: 26px;
+}
+
+.mapa .mapa__calle {
+  fill: var(--hielo-suave);
+  font-family: var(--fuente-texto);
+  font-size: 18px;
+  font-weight: 600;
+  font-stretch: 100%;
+}
+
+@media (min-width: 64rem) {
+  .ubicacion {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--espacio-8);
+    align-items: start;
+  }
+}

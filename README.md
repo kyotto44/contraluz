@@ -14,7 +14,7 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - [x] Residentes: cartel con los cuatro DJs y cuándo toca cada uno.
 - [x] Espacios: mosaico de fotos con el patio, la barra y el sonido.
 - [x] Reservas: formulario con Netlify Forms, con y sin JavaScript.
-- [ ] Ubicación, horario y pie
+- [x] Ubicación, horario y pie: dirección inventada, mapa propio y aviso de si el club está abierto.
 
 ## La entrada
 
@@ -90,7 +90,7 @@ contraluz/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
-│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, reservas.js, revelar.js
+│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, reservas.js, ubicacion.js, revelar.js
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css

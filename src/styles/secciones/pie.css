@@ -1,10 +1,72 @@
+/* El pie cierra con el nombre a todo el ancho, como lo abrió la portada. */
+
 .pie {
-  padding: var(--espacio-6) var(--margen) calc(var(--espacio-6) + env(safe-area-inset-bottom, 0px));
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  container-type: inline-size;
+  overflow: hidden;
+  padding: var(--espacio-7) var(--borde) calc(var(--espacio-5) + env(safe-area-inset-bottom, 0px));
   border-top: var(--linea) solid var(--tinta-linea);
   font-size: var(--texto-chico);
   color: var(--hielo-suave);
 }
 
-.pie p {
+.pie__columnas {
+  display: grid;
+  gap: var(--espacio-6);
+}
+
+.pie__enlaces {
+  display: grid;
+  justify-items: start;
+}
+
+.pie__enlaces a {
+  display: inline-block;
+  padding-block: var(--espacio-3);
+  font-size: var(--texto);
+  font-weight: 600;
+  color: var(--hielo);
+  text-decoration: none;
+  transition: color var(--dur-ui) ease;
+}
+
+.pie__notas {
+  display: grid;
+  gap: var(--espacio-4);
   max-width: var(--medida);
+}
+
+.pie__notas a {
+  color: var(--hielo);
+  transition: color var(--dur-ui) ease;
+}
+
+/* Firma, no contenido: el nombre ya se anuncia en la cabecera. */
+.pie__marca {
+  margin-top: var(--espacio-7);
+  font-family: var(--fuente-titulo);
+  font-size: 26cqi;
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.82;
+  letter-spacing: -0.015em;
+  text-align: center;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--laser);
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+@media (min-width: 48rem) {
+  .pie__columnas {
+    grid-template-columns: 1fr 2fr;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .pie__enlaces a:hover,
+  .pie__notas a:hover {
+    color: var(--laser-nucleo);
+  }
 }
