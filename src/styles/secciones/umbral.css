@@ -44,6 +44,7 @@
 }
 
 .umbral__puerta img {
+  display: block;
   width: 100%;
   height: 100%;
 }
@@ -180,16 +181,11 @@
   font-size: var(--texto-grande);
 }
 
-/* ---------- Con movimiento: la escena se queda fija y el scroll la recorre ---------- */
-
-.umbral-viva {
-  timeline-scope: --umbral;
-}
+/* ---------- Con movimiento: la escena se queda fija y la puerta se cruza sola ---------- */
 
 .umbral-viva .umbral {
-  /* Cuánto scroll dura el cruce. */
-  height: 360lvh;
-  view-timeline: --umbral block;
+  /* La escena fija dura una pantalla de scroll: lo justo para ver el cruce y leer el texto. */
+  height: 200lvh;
 }
 
 .umbral-viva .umbral__escena {
@@ -214,6 +210,8 @@
   inset: 0;
   min-height: 0;
   opacity: 0;
+  /* Deja la capa lista antes de aparecer, para no tener que pintarla justo en el cruce. */
+  will-change: opacity;
 }
 
 .umbral-viva .umbral__texto {
@@ -229,7 +227,7 @@
   pointer-events: none;
 }
 
-/* Todas duran 1000ms en pausa; lo que las mueve es el progreso del scroll. */
+/* Todas comparten duración y esperan en pausa; umbral.js las arranca y las revierte juntas. */
 .umbral-viva .umbral__puerta,
 .umbral-viva .laser,
 .umbral-viva .umbral__marca,
@@ -239,7 +237,7 @@
 .umbral-viva .umbral__multitud,
 .umbral-viva .umbral__texto,
 .umbral-viva .cabecera__marca {
-  animation-duration: 1000ms;
+  animation-duration: 1500ms;
   animation-timing-function: linear;
   animation-fill-mode: both;
   animation-play-state: paused;
@@ -264,10 +262,11 @@
 
 .umbral-viva .umbral__marca {
   animation-name: umbral-marca;
+  will-change: transform, opacity;
 }
 
 .umbral-viva .ficha {
-  animation-name: umbral-ficha;
+  animation-name: umbral-ficha, umbral-ficha-oculta;
 }
 
 .umbral-viva .umbral__destello {
@@ -296,41 +295,20 @@
   opacity: 1 !important;
 }
 
-@supports (animation-timeline: view()) {
-  .umbral-viva .umbral__puerta,
-  .umbral-viva .laser,
-  .umbral-viva .umbral__marca,
-  .umbral-viva .ficha,
-  .umbral-viva .umbral__destello,
-  .umbral-viva .umbral__adentro,
-  .umbral-viva .umbral__multitud,
-  .umbral-viva .umbral__texto,
-  .umbral-viva .cabecera__marca {
-    animation-timeline: --umbral;
-    animation-range: contain 0% contain 100%;
-    animation-play-state: running;
-  }
-}
-
-/* La escala crece más rápido al final para que el avance se sienta parejo. */
+/* Una sola curva, sin tramos: el zoom se percibe en proporción, así que cada instante
+   debe ampliar en un porcentaje parecido. Con escalas sueltas entre keyframes, la velocidad
+   cambiaba de golpe al pasar de un tramo a otro y se sentía como un tirón.
+   Los valores son (8^(x^1.25) - 1) / 7: arranca suave y acelera sin saltos.
+   Se detiene en 8: de ahí en adelante todo lo cubre el destello, y ampliar más
+   una capa de este tamaño solo gasta memoria de la GPU. */
 @keyframes umbral-puerta {
   0% {
     transform: scale(1);
+    animation-timing-function: linear(0, 0.0114, 0.0286, 0.0506, 0.0777, 0.1108, 0.1509, 0.1996, 0.2585, 0.33, 0.4168, 0.5223, 0.651, 0.8079, 1);
   }
-  25% {
-    transform: scale(1.5);
-  }
-  45% {
-    transform: scale(2.8);
-  }
-  60% {
-    transform: scale(6);
-  }
-  72% {
-    transform: scale(14);
-  }
+  70%,
   100% {
-    transform: scale(14);
+    transform: scale(8);
   }
 }
 
@@ -379,10 +357,12 @@
   }
 }
 
-/* El nombre se ensancha hasta salirse de la pantalla: la puerta lo abre. */
+/* El nombre se ensancha hasta salirse de la pantalla: la puerta lo abre.
+   Con scaleX y no con font-stretch: redibujar letras tan grandes en cada cuadro
+   ocupa el hilo principal y el nombre se atrasa respecto a la puerta. */
 @keyframes umbral-marca {
   from {
-    font-stretch: 62%;
+    transform: translateX(-50%) scaleX(1);
     opacity: 1;
   }
   30% {
@@ -390,7 +370,7 @@
   }
   42%,
   to {
-    font-stretch: 150%;
+    transform: translateX(-50%) scaleX(2.24);
     opacity: 0;
   }
 }
@@ -408,17 +388,29 @@
   to {
     transform: translateY(-1.5rem);
     opacity: 0;
+  }
+}
+
+/* Ya invisible, el botón no se puede tocar ni enfocar. Va en una animación aparte porque
+   visibility no corre en la GPU, y así no se lleva consigo el movimiento de la ficha. */
+@keyframes umbral-ficha-oculta {
+  0%,
+  25.9% {
+    visibility: visible;
+  }
+  26%,
+  to {
     visibility: hidden;
   }
 }
 
-/* Un solo paso por la luz, ligado al scroll: no parpadea. */
+/* Un solo paso por la luz: no parpadea. */
 @keyframes umbral-destello {
   0%,
-  58% {
+  52% {
     opacity: 0;
   }
-  70% {
+  68% {
     opacity: 1;
   }
   84%,
@@ -429,10 +421,10 @@
 
 @keyframes umbral-adentro {
   0%,
-  68% {
+  66% {
     opacity: 0;
   }
-  72%,
+  70%,
   to {
     opacity: 1;
   }
@@ -440,7 +432,7 @@
 
 @keyframes umbral-multitud {
   0%,
-  68% {
+  66% {
     transform: scale(1.22);
   }
   to {

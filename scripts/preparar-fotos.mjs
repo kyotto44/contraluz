@@ -35,7 +35,8 @@ const FOTOS = [
     // La neblina se pinta en la foto para que el rojo ocupe la pantalla desde el inicio.
     // Los radios terminan antes del borde del recorte: fuera de la foto todo sigue en tinta.
     neblina: { x: 1160, y: 732, radioX: 1150, radioY: 725, fuerza: 0.3 },
-    anchos: [3000],
+    // El celular baja la de 2000: ocupa menos de la mitad de memoria al decodificarla.
+    anchos: [2000, 3000],
   },
   {
     nombre: "multitud",
@@ -114,11 +115,10 @@ async function procesar(foto, mapa) {
   const entrada = { raw: { width, height, channels: 3 } };
   for (const ancho of foto.anchos) {
     const base = sharp(color, entrada).resize({ width: ancho, withoutEnlargement: true });
-    const avif = `${SALIDA}/${foto.nombre}-${ancho}.avif`;
+    // Solo WebP: estas fotos decodifican más rápido que en AVIF y las grandes pesan menos.
     const webp = `${SALIDA}/${foto.nombre}-${ancho}.webp`;
-    const a = await base.clone().avif({ quality: 58, effort: 6, chromaSubsampling: "4:4:4" }).toFile(avif);
-    const w = await base.clone().webp({ quality: 76, effort: 6 }).toFile(webp);
-    console.log(`${foto.nombre}-${ancho} (${a.width}x${a.height}): avif ${(a.size / 1024).toFixed(0)} KB, webp ${(w.size / 1024).toFixed(0)} KB`);
+    const w = await base.webp({ quality: 76, effort: 6 }).toFile(webp);
+    console.log(`${foto.nombre}-${ancho} (${w.width}x${w.height}): ${(w.size / 1024).toFixed(0)} KB`);
   }
 }
 

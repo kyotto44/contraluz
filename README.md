@@ -18,16 +18,16 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 
 ## La entrada
 
-- **Cruzar la puerta.** La escena queda fija y el scroll hace crecer la puerta, ensancha el nombre hasta salirse de la pantalla, pasa por la luz y aparece la pista.
-- **Sin librerías.** Son animaciones de CSS ligadas al scroll. Si el navegador no las soporta, un respaldo de pocas líneas mueve las mismas animaciones, y solo mientras la sección está a la vista.
+- **Cruzar la puerta.** Al bajar, la puerta crece sola, el nombre se ensancha hasta salirse de la pantalla, pasa por la luz y aparece la pista. Al subir, la escena se devuelve desde cualquier punto, y se puede revertir a mitad de camino.
+- **Sin librerías y en la GPU.** Son animaciones de CSS que mueven `transform` y `opacity`. Corren por tiempo y no ligadas al scroll: la inercia del touchpad no puede hacer saltar la escena.
 - **Reducir movimiento y sin JavaScript.** La portada queda como dos pantallas quietas, con todo el contenido disponible.
-- **Fotos con una sola luz.** `npm run fotos` pasa cada foto a grises y mapea sus tonos a la paleta: tinta, rojo láser y blanco rosado. Genera AVIF y WebP en `public/imagenes/`.
+- **Fotos con una sola luz.** `npm run fotos` pasa cada foto a grises y mapea sus tonos a la paleta: tinta, rojo láser y blanco rosado. Genera WebP en `public/imagenes/`.
 
 ## Tecnologías
 
 - HTML, CSS y JavaScript sin frameworks (módulos ES).
 - [Vite](https://vite.dev) para desarrollo y compilación.
-- Fuentes servidas desde el propio sitio (Anybody y Manrope, vía Fontsource): nada se carga de Google ni de otros dominios. Anybody tiene ancho variable, y la entrada lo anima.
+- Fuentes servidas desde el propio sitio (Anybody y Manrope, vía Fontsource): nada se carga de Google ni de otros dominios. Anybody tiene ancho variable: el nombre usa su versión condensada.
 - Netlify para publicar, con cabeceras de seguridad y una CSP que solo permite recursos del propio dominio.
 
 ## Cómo abrirlo
@@ -67,7 +67,7 @@ contraluz/
 ├── index.html              Página principal
 ├── public/
 │   ├── favicon.svg
-│   └── imagenes/           Fotos procesadas (AVIF y WebP)
+│   └── imagenes/           Fotos procesadas (WebP)
 ├── scripts/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/

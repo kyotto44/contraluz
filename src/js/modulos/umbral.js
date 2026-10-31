@@ -1,60 +1,89 @@
-// La entrada al club: el scroll atraviesa la puerta.
-// Las animaciones viven en umbral.css. Este módulo solo decide si se activan:
+// La entrada al club: al bajar, la puerta se cruza sola; al subir, se devuelve.
+// Las animaciones viven en umbral.css. Este módulo solo decide cuándo corren:
 //   - Sin JavaScript o con «reducir movimiento», la portada queda como dos pantallas quietas.
-//   - Con animaciones ligadas al scroll en CSS, el navegador hace todo el trabajo.
-//   - Sin ellas, un respaldo mueve las mismas animaciones según el progreso, y solo
-//     mientras la sección está a la vista.
+//   - Con movimiento, corren por tiempo y no ligadas al scroll: la inercia del touchpad
+//     puede mover el scroll de golpe, y así no se lleva la animación con él.
+// Lo que decide es la dirección y no la posición: subir responde desde cualquier punto de la
+// escena, sin tener que llegar hasta el inicio de la página.
 
-const DURACION_ANIMACION = 1000; // la misma de umbral.css
+const GIRO = 48; // px en sentido contrario para cambiar de escena: un roce no la dispara
+const VELOCIDAD_REGRESO = 1.5; // volver atrás no debe costar lo mismo que descubrir la escena
 
-function crearRespaldo(seccion) {
-  let cuadro = null;
-  let ultimoProgreso = -1;
+function crearCruce(seccion) {
+  let animaciones = [];
+  let adentro = false;
+  let ancla = 0; // el punto más avanzado en el sentido actual
 
-  const animaciones = () => document.getAnimations().filter((a) => a.animationName?.startsWith("umbral-"));
-
-  function pintar() {
-    const caja = seccion.getBoundingClientRect();
-    const recorrido = caja.height - window.innerHeight;
-    const progreso = recorrido > 0 ? Math.min(Math.max(-caja.top / recorrido, 0), 1) : 0;
-    if (progreso !== ultimoProgreso) {
-      ultimoProgreso = progreso;
-      for (const animacion of animaciones()) animacion.currentTime = progreso * DURACION_ANIMACION;
+  function cruzar() {
+    for (const animacion of animaciones) {
+      // Cambiar el sentido conserva el punto actual: se puede revertir a mitad de camino.
+      animacion.playbackRate = adentro ? 1 : -VELOCIDAD_REGRESO;
+      animacion.play();
     }
-    cuadro = requestAnimationFrame(pintar);
   }
 
-  function detener() {
-    cancelAnimationFrame(cuadro);
-    cuadro = null;
-  }
+  function alMover() {
+    const y = window.scrollY;
 
-  const observador = new IntersectionObserver(([entrada]) => {
-    if (entrada.isIntersecting && cuadro === null) pintar();
-    else if (!entrada.isIntersecting) detener();
-  });
+    // La escena ya empezó a salir de la pantalla: al volver debe seguir como quedó.
+    if (seccion.getBoundingClientRect().bottom < window.innerHeight) {
+      ancla = y;
+      return;
+    }
+
+    const avance = y - ancla;
+    if (adentro ? avance > 0 : avance < 0) {
+      ancla = y;
+    } else if (Math.abs(avance) >= GIRO) {
+      adentro = !adentro;
+      ancla = y;
+      cruzar();
+    }
+  }
 
   return {
-    activar: () => observador.observe(seccion),
-    desactivar: () => {
-      observador.disconnect();
-      detener();
+    activar() {
+      animaciones = document.getAnimations().filter((a) => a.animationName?.startsWith("umbral-"));
+      ancla = window.scrollY;
+      // Si el navegador restauró el scroll más abajo, ya estamos adentro: no se repite el cruce.
+      adentro = ancla >= GIRO;
+      if (adentro) for (const animacion of animaciones) animacion.finish();
+      window.addEventListener("scroll", alMover, { passive: true });
+    },
+    desactivar() {
+      window.removeEventListener("scroll", alMover);
     },
   };
+}
+
+// Decodifica la foto de adentro en un momento libre, para que no frene el cruce.
+function prepararAdentro(seccion) {
+  const foto = seccion.querySelector(".umbral__multitud img");
+  if (!foto) return;
+  foto.loading = "eager";
+  const preparar = () => foto.decode().catch(() => {});
+  if ("requestIdleCallback" in window) requestIdleCallback(preparar, { timeout: 2000 });
+  else setTimeout(preparar, 800);
 }
 
 export function iniciarUmbral() {
   const seccion = document.querySelector(".umbral");
   if (!seccion) return;
 
+  // Al recargar se vuelve a la puerta. Si el navegador restaura el scroll mientras la página se
+  // arma, la posición cambia varias veces y el cruce queda yendo y viniendo a medias.
+  history.scrollRestoration = "manual";
+
   const reducir = window.matchMedia("(prefers-reduced-motion: reduce)");
-  const nativo = CSS.supports("animation-timeline: view()");
-  const respaldo = nativo ? null : crearRespaldo(seccion);
+  const cruce = crearCruce(seccion);
 
   function aplicar() {
+    cruce.desactivar();
     document.documentElement.classList.toggle("umbral-viva", !reducir.matches);
-    if (reducir.matches) respaldo?.desactivar();
-    else respaldo?.activar();
+    if (reducir.matches) return;
+
+    cruce.activar();
+    prepararAdentro(seccion);
   }
 
   aplicar();
