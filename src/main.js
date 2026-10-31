@@ -5,6 +5,7 @@ import "@fontsource-variable/manrope";
 import "./styles/main.css";
 
 import { iniciarAgenda } from "./js/modulos/agenda.js";
+import { iniciarReservas } from "./js/modulos/reservas.js";
 import { iniciarResidentes } from "./js/modulos/residentes.js";
 import { revelar } from "./js/modulos/revelar.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
@@ -12,4 +13,5 @@ import { iniciarUmbral } from "./js/modulos/umbral.js";
 iniciarUmbral();
 iniciarAgenda();
 iniciarResidentes();
+iniciarReservas();
 revelar(document.querySelector(".espacios__lista"));

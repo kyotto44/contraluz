@@ -214,6 +214,93 @@
           </li>
         </ul>
       </section>
+
+      <section class="reservas" id="reservas" aria-labelledby="reservas-titulo">
+        <div class="reservas__portada">
+          <picture class="reservas__foto">
+            <img src="/imagenes/manos-1280.webp" sizes="100vw" srcset="/imagenes/manos-828.webp 828w, /imagenes/manos-1280.webp 1280w, /imagenes/manos-1920.webp 1920w, /imagenes/manos-2400.webp 2400w" width="2400" height="1800" loading="lazy" decoding="async" alt="Siluetas de manos levantadas contra una luz roja." />
+          </picture>
+          <h2 id="reservas-titulo">Reservar</h2>
+        </div>
+
+        <div class="reservas__cuerpo">
+          <div class="reservas__texto">
+            <p class="reservas__lema">Elige la noche y deja tu nombre. Nada más.</p>
+            <p class="reservas__aviso"><strong>Es una demostración.</strong> Contraluz no existe y nadie te va a llamar: no dejes datos reales.</p>
+          </div>
+
+          <form class="reserva" name="reservas" method="POST" action="/gracias/" data-netlify="true" netlify-honeypot="empresa">
+            <input type="hidden" name="form-name" value="reservas" />
+
+            <div class="reserva__trampa">
+              <label for="reserva-empresa">No llenes este campo</label>
+              <input id="reserva-empresa" name="empresa" type="text" tabindex="-1" autocomplete="off" />
+            </div>
+
+            <div class="campo">
+              <label for="reserva-noche">Noche</label>
+              <select id="reserva-noche" name="noche" required>
+                <option value="2026-11-07">sábado 7 de noviembre · Señal 808 y Mara K</option>
+                <option value="2026-11-12">jueves 12 de noviembre · Sol Negro</option>
+                <option value="2026-11-13">viernes 13 de noviembre · Mara K toda la noche</option>
+                <option value="2026-11-14">sábado 14 de noviembre · Vera Ohm y Tundra</option>
+                <option value="2026-11-19">jueves 19 de noviembre · Vera Ohm</option>
+                <option value="2026-11-20">viernes 20 de noviembre · Tundra y Cuarto Oscuro</option>
+              </select>
+            </div>
+
+            <fieldset class="campo campo--opciones">
+              <legend>Cómo quieres entrar</legend>
+              <label class="opcion">
+                <input type="radio" name="tipo" value="lista" checked />
+                <span class="opcion__texto"><strong>Lista</strong> Fila corta en la puerta. Pagas al entrar.</span>
+              </label>
+              <label class="opcion">
+                <input type="radio" name="tipo" value="mesa" />
+                <span class="opcion__texto"><strong>Mesa</strong> Un lugar apartado junto a la pista.</span>
+              </label>
+            </fieldset>
+
+            <div class="campo">
+              <label for="reserva-personas">Personas</label>
+              <select id="reserva-personas" name="personas" required>
+                <option>1</option>
+                <option selected>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+
+            <div class="campo">
+              <label for="reserva-nombre">Tu nombre</label>
+              <input id="reserva-nombre" name="nombre" type="text" autocomplete="name" maxlength="80" required aria-describedby="error-nombre" />
+              <p class="campo__error" id="error-nombre" hidden></p>
+            </div>
+
+            <div class="campo">
+              <label for="reserva-celular">Celular</label>
+              <input id="reserva-celular" name="celular" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" pattern="[+0-9\s\(\)\.\-]{7,20}" required aria-describedby="error-celular" />
+              <p class="campo__error" id="error-celular" hidden></p>
+            </div>
+
+            <p class="reserva__problema" role="alert" hidden></p>
+            <button class="boton reserva__enviar" type="submit">Enviar reserva</button>
+          </form>
+
+          <div class="reservas__listo" tabindex="-1" hidden>
+            <h3></h3>
+            <p class="reservas__detalle"></p>
+            <p>Como Contraluz no existe, nadie te va a llamar.</p>
+            <button class="boton" type="button">Hacer otra reserva</button>
+          </div>
+        </div>
+      </section>
     </main>
 
     <footer class="pie">

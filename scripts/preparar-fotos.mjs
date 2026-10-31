@@ -80,6 +80,17 @@ const FOTOS = [
     blanco: 225,
     anchos: [828, 1280, 1920],
   },
+  {
+    nombre: "manos",
+    autor: "Kelvin Moquete",
+    url: "https://images.unsplash.com/photo-1590721791974-d6c8ca43f6bc?w=2400&q=85&fm=jpg",
+    // Con cielo de sobra para el título. Abajo solo queda sombra, que empalma con la tinta de la página.
+    recorte: { left: 0, top: 200, width: 2400, height: 1800 },
+    // El cielo es casi blanco: con este rango cae en rojo láser y no en blanco quemado.
+    negro: 20,
+    blanco: 430,
+    anchos: [828, 1280, 1920, 2400],
+  },
 ];
 
 // Azar con semilla fija: repetir el script da exactamente las mismas imágenes.

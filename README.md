@@ -13,7 +13,7 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - [x] Agenda: las próximas noches, con fechas que se calculan solas.
 - [x] Residentes: cartel con los cuatro DJs y cuándo toca cada uno.
 - [x] Espacios: mosaico de fotos con el patio, la barra y el sonido.
-- [ ] Reservas (Netlify Forms)
+- [x] Reservas: formulario con Netlify Forms, con y sin JavaScript.
 - [ ] Ubicación, horario y pie
 
 ## La entrada
@@ -28,6 +28,12 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - **Nunca queda en el pasado.** Las noches viven en el HTML y se repiten cada dos semanas. `agenda.js` las lleva a sus próximas fechas según la hora de Bogotá, y la noche sigue vigente hasta el cierre, a las 3 a. m.
 - **La próxima noche manda.** Va en una franja de luz roja, y la ficha de la portada copia sus datos: «Esta noche», «Mañana» o «Próxima noche».
 - **Sin JavaScript** la agenda se lee completa, con las fechas escritas en el HTML.
+
+## Las reservas
+
+- **Funciona sin JavaScript.** El formulario es HTML: Netlify Forms lo recibe y lleva a `/gracias/`. Un campo trampa frena a los robots.
+- **Con JavaScript es mejor.** Las noches salen de la agenda, «Reservar» en una fila deja esa noche elegida, los errores se explican junto a cada campo y la confirmación aparece sin recargar.
+- **Honesto.** El club no existe, y el formulario pide no dejar datos reales. Lo que se envíe llega al panel de Netlify de quien publique el sitio.
 
 ## Tecnologías
 
@@ -62,6 +68,7 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 - Patio: [Pavel Lozovikov](https://unsplash.com/es/fotos/HYovA7yPPvI)
 - Barra: [Lucas Chizzali](https://unsplash.com/es/fotos/K_JK5mpSLl0)
 - Sonido: [Zahotoo](https://unsplash.com/es/fotos/Boo4sKszgOI)
+- Reservas: [Kelvin Moquete](https://unsplash.com/es/fotos/LOV7Gbmgm30)
 
 ## Seguridad y claves
 
@@ -75,6 +82,7 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 ```
 contraluz/
 ├── index.html              Página principal
+├── gracias/                Página tras reservar sin JavaScript
 ├── public/
 │   ├── favicon.svg
 │   └── imagenes/           Fotos procesadas (WebP)
@@ -82,7 +90,7 @@ contraluz/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
-│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, revelar.js
+│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, reservas.js, revelar.js
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css

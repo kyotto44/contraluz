@@ -1,0 +1,275 @@
+/* Reservar: el título va en tinta sobre la luz, igual que las manos.
+   Debajo, un formulario tranquilo: se llena de noche, con el celular en una mano. */
+
+.reservas {
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  padding-bottom: var(--espacio-9);
+}
+
+.reservas__portada {
+  container-type: inline-size;
+  position: relative;
+  overflow: hidden;
+}
+
+.reservas__foto img {
+  width: 100%;
+  height: min(82svh, 62.5vw + 11rem);
+  object-fit: cover;
+  object-position: 50% 60%;
+}
+
+.reservas__portada h2 {
+  position: absolute;
+  top: 5.5rem; /* libra la cabecera fija */
+  left: var(--borde);
+  font-size: min(23cqi, 13rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  color: var(--sobre-laser);
+}
+
+.reservas__cuerpo {
+  display: grid;
+  gap: var(--espacio-7);
+  padding: var(--espacio-7) var(--borde) 0;
+}
+
+.reservas__texto {
+  display: grid;
+  align-content: start;
+  gap: var(--espacio-5);
+}
+
+.reservas__lema {
+  font-family: var(--fuente-titulo);
+  font-size: var(--titulo-3);
+  font-weight: 800;
+  font-stretch: 125%;
+  line-height: 1.1;
+}
+
+.reservas__aviso {
+  max-width: 28rem;
+  color: var(--hielo-suave);
+}
+
+.reservas__aviso strong {
+  color: var(--hielo);
+}
+
+@media (min-width: 64rem) {
+  .reservas__cuerpo {
+    grid-template-columns: 5fr 7fr;
+    gap: var(--espacio-8);
+  }
+}
+
+/* ---------- Formulario ---------- */
+
+.reserva {
+  display: grid;
+  gap: var(--espacio-5);
+  max-width: 40rem;
+}
+
+/* [hidden] pierde contra cualquier display: se asegura aquí. */
+.reserva[hidden],
+.reservas__listo[hidden],
+.campo__error[hidden],
+.reserva__problema[hidden] {
+  display: none;
+}
+
+/* Fuera de la vista y de la lectura: solo lo llenan los robots. */
+.reserva__trampa {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+
+.campo {
+  display: grid;
+  gap: var(--espacio-2);
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.campo > label,
+.campo legend {
+  padding: 0;
+  font-weight: 700;
+}
+
+.campo input:not([type="radio"]),
+.campo select {
+  width: 100%;
+  min-height: 3rem;
+  padding: var(--espacio-3) var(--espacio-4);
+  background-color: var(--tinta-alta);
+  border: var(--linea) solid var(--tinta-borde);
+  border-radius: var(--radio);
+}
+
+.campo select {
+  -webkit-appearance: none;
+  appearance: none;
+  padding-right: var(--espacio-7);
+  text-overflow: ellipsis;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23e8ecf5' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right var(--espacio-4) center;
+}
+
+.campo [aria-invalid="true"] {
+  border-color: var(--laser);
+}
+
+.campo__error,
+.reserva__problema {
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  color: var(--laser-nucleo);
+}
+
+.campo--opciones {
+  gap: var(--espacio-3);
+}
+
+/* legend no respeta el gap: el espacio va en él. */
+.campo--opciones legend {
+  margin-bottom: var(--espacio-2);
+}
+
+.opcion {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--espacio-3);
+  align-items: start;
+  padding: var(--espacio-4);
+  border: var(--linea) solid var(--tinta-borde);
+  border-radius: var(--radio);
+  cursor: pointer;
+  transition: border-color var(--dur-ui) ease, background-color var(--dur-ui) ease;
+}
+
+.opcion input {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin: 0.15rem 0 0;
+}
+
+.opcion__texto {
+  color: var(--hielo-suave);
+}
+
+.opcion__texto strong {
+  display: block;
+  color: var(--hielo);
+}
+
+.opcion:has(:checked) {
+  background-color: rgb(255 45 70 / 0.12);
+  border-color: var(--laser);
+}
+
+.opcion:has(:focus-visible) {
+  outline: 2px solid var(--hielo);
+  outline-offset: 3px;
+}
+
+.opcion input:focus-visible {
+  outline: 0;
+}
+
+.reserva__enviar {
+  justify-self: start;
+  min-height: 3rem;
+  padding-inline: var(--espacio-6);
+}
+
+.reserva__enviar[aria-disabled="true"] {
+  cursor: progress;
+  opacity: 0.7;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .opcion:hover {
+    border-color: var(--hielo);
+  }
+}
+
+/* ---------- Confirmación ---------- */
+
+.reservas__listo {
+  display: grid;
+  align-content: start;
+  justify-items: start;
+  gap: var(--espacio-4);
+  max-width: 40rem;
+  outline: 0;
+  animation: reserva-lista 500ms var(--curva-salida) both;
+}
+
+.reservas__listo h3 {
+  font-size: var(--titulo-2);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.95;
+  overflow-wrap: anywhere;
+}
+
+.reservas__detalle {
+  font-size: var(--texto-grande);
+}
+
+.reservas__listo p:not(.reservas__detalle) {
+  color: var(--hielo-suave);
+}
+
+@keyframes reserva-lista {
+  from {
+    opacity: 0;
+    transform: translateY(0.75rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reservas__listo {
+    animation: none;
+  }
+}
+
+/* ---------- Página de gracias (envío sin JavaScript) ---------- */
+
+.gracias {
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: var(--espacio-5);
+  min-height: 100svh;
+  padding: var(--espacio-7) var(--margen);
+}
+
+.gracias h1 {
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  text-transform: uppercase;
+}
+
+.gracias p {
+  max-width: 34rem;
+  color: var(--hielo-suave);
+}

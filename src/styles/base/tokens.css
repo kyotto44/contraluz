@@ -9,6 +9,7 @@
   --tinta: #06080f;          /* fondo y siluetas */
   --tinta-alta: #0d111c;     /* superficies elevadas sobre la tinta */
   --tinta-linea: #232a3b;    /* líneas sobre tinta */
+  --tinta-borde: #6f7a94;    /* bordes de campos: un control debe verse (4,5:1 sobre tinta) */
   --hielo: #e8ecf5;          /* texto principal */
   --hielo-suave: #aab3c7;    /* texto secundario sobre tinta (9,4:1) */
   --laser: #ff2d46;          /* la luz de la cabina */
