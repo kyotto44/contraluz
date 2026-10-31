@@ -5,7 +5,9 @@ import "@fontsource-variable/manrope";
 import "./styles/main.css";
 
 import { iniciarAgenda } from "./js/modulos/agenda.js";
+import { iniciarResidentes } from "./js/modulos/residentes.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
 iniciarUmbral();
 iniciarAgenda();
+iniciarResidentes();

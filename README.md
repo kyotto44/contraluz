@@ -11,7 +11,7 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - [x] Base del proyecto: Vite, fuentes autoalojadas, tokens de diseño y configuración segura.
 - [x] Entrada: con el scroll se cruza la puerta y aparece la pista.
 - [x] Agenda: las próximas noches, con fechas que se calculan solas.
-- [ ] Residentes
+- [x] Residentes: cartel con los cuatro DJs y cuándo toca cada uno.
 - [ ] Espacios y galería
 - [ ] Reservas (Netlify Forms)
 - [ ] Ubicación, horario y pie
@@ -58,6 +58,7 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 
 - Puerta: [Viktor Forgacs](https://unsplash.com/es/fotos/iDF0FXUxGhE)
 - Pista: [Jorik Kleen](https://unsplash.com/es/fotos/pxCGO2S9Db0)
+- Cabina: [Marcela Laskoski](https://unsplash.com/es/fotos/YrtFlrLo2DQ)
 
 ## Seguridad y claves
 
@@ -78,7 +79,7 @@ contraluz/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
-│   ├── js/modulos/         umbral.js (el cruce de la puerta), agenda.js (las fechas)
+│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, revelar.js
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css

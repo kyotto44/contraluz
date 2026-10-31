@@ -1,0 +1,155 @@
+/* Residentes: un cartel. Una mano a contraluz y los nombres en la misma letra de la portada. */
+
+.residentes {
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  margin-top: var(--espacio-9);
+  background: var(--tinta);
+}
+
+.residentes__portada {
+  position: relative;
+  display: grid;
+  align-items: end;
+  overflow: hidden;
+}
+
+.residentes__portada > * {
+  grid-area: 1 / 1;
+}
+
+.residentes__foto {
+  position: relative;
+  display: block;
+}
+
+.residentes__foto img {
+  width: 100%;
+  height: min(85svh, 66.67vw + 12rem);
+  object-fit: cover;
+  object-position: 42% 35%;
+}
+
+/* La foto se apaga hacia la tinta: el título se lee y la lista sigue sin corte. */
+.residentes__foto::after {
+  content: "";
+  position: absolute;
+  inset: 40% 0 0;
+  background: linear-gradient(rgb(6 8 15 / 0), rgb(6 8 15 / 0.8) 62%, var(--tinta));
+}
+
+.residentes__cabeza {
+  position: relative;
+  display: grid;
+  gap: var(--espacio-4);
+  padding-inline: var(--borde);
+}
+
+.residentes__cabeza h2 {
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.residentes__cabeza p {
+  max-width: 34ch;
+  color: var(--hielo);
+}
+
+@media (min-width: 48rem) {
+  .residentes__cabeza {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+.residentes__lista {
+  container-type: inline-size;
+  margin-top: var(--espacio-7);
+}
+
+.residente {
+  display: grid;
+  gap: var(--espacio-4);
+  padding: var(--espacio-5) var(--borde);
+  border-top: var(--linea) solid var(--tinta-linea);
+}
+
+.residente:last-child {
+  border-bottom: var(--linea) solid var(--tinta-linea);
+}
+
+/* Cabe a todo el ancho del celular, como el nombre del club en la portada. */
+.residente__nombre {
+  font-size: min(25cqi, 11rem);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.95;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  text-wrap: wrap;
+  overflow-wrap: anywhere;
+  transform-origin: left;
+  transition: color var(--dur-ui) ease, transform 400ms var(--curva-salida);
+}
+
+.residente__datos {
+  display: grid;
+  justify-items: start;
+  gap: var(--espacio-2);
+  max-width: 28rem;
+}
+
+.residente__datos p {
+  color: var(--hielo-suave);
+}
+
+/* Rojo sobre tinta (5,4:1). El relleno lleva el enlace a 44px para el dedo. */
+.residente__proxima {
+  padding-block: var(--espacio-3);
+  color: var(--laser);
+  font-weight: 700;
+  line-height: 1.25;
+  text-decoration: underline;
+  transition: color var(--dur-ui) ease;
+}
+
+/* [hidden] pierde contra cualquier display: se asegura aquí. */
+.residente__proxima[hidden] {
+  display: none;
+}
+
+@media (min-width: 64rem) {
+  .residente {
+    grid-template-columns: minmax(0, 1fr) 24rem;
+    gap: var(--espacio-6);
+    align-items: center;
+  }
+
+  .residente__nombre {
+    font-size: min(13cqi, 11rem);
+  }
+}
+
+/* Al pasar el mouse el nombre se ensancha un poco, como el de la portada al cruzar la puerta. */
+@media (hover: hover) and (pointer: fine) {
+  .residente:hover .residente__nombre {
+    color: var(--laser);
+    transform: scaleX(1.05);
+  }
+
+  .residente__proxima:hover {
+    color: var(--hielo);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .residente__nombre {
+    transition: color var(--dur-ui) ease;
+  }
+
+  .residente:hover .residente__nombre {
+    transform: none;
+  }
+}

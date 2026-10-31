@@ -2,6 +2,8 @@
 // Este módulo solo las lleva a sus próximas fechas: la agenda nunca queda en el pasado,
 // y la ficha de la portada siempre muestra la noche que sigue.
 
+import { revelar } from "./revelar.js";
+
 const DIA = 24 * 60 * 60 * 1000;
 const HORA = 60 * 60 * 1000;
 const CICLO = 14; // días
@@ -72,22 +74,6 @@ function ordenar(lista) {
       actualizarFicha(noche, aviso, texto);
     }
   });
-}
-
-// Las filas entran una sola vez, la primera vez que la agenda aparece.
-function revelar(lista) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  lista.classList.add("agenda__lista--oculta");
-  const observador = new IntersectionObserver(
-    ([entrada]) => {
-      if (!entrada.isIntersecting) return;
-      observador.disconnect();
-      lista.classList.replace("agenda__lista--oculta", "agenda__lista--entra");
-    },
-    { rootMargin: "0px 0px -10% 0px" },
-  );
-  observador.observe(lista);
 }
 
 export function iniciarAgenda() {

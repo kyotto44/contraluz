@@ -46,6 +46,15 @@ const FOTOS = [
     blanco: 245,
     anchos: [828, 1280, 1920, 2400],
   },
+  {
+    nombre: "cabina",
+    autor: "Marcela Laskoski",
+    url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=2400&q=85&fm=jpg",
+    // El fondo morado es oscuro en grises: se abre el rango para que se vuelva luz roja.
+    negro: 8,
+    blanco: 150,
+    anchos: [828, 1280, 1920, 2400],
+  },
 ];
 
 // Azar con semilla fija: repetir el script da exactamente las mismas imágenes.

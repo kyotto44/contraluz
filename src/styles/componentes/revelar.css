@@ -1,0 +1,26 @@
+/* Entrada de una lista, una sola vez. Las clases las pone revelar.js. */
+
+.revelar--oculto > * {
+  opacity: 0;
+}
+
+.revelar--entra > * {
+  animation: revelar-entra 600ms var(--curva-salida) both;
+}
+
+.revelar--entra > :nth-child(2) { animation-delay: 60ms; }
+.revelar--entra > :nth-child(3) { animation-delay: 120ms; }
+.revelar--entra > :nth-child(4) { animation-delay: 180ms; }
+.revelar--entra > :nth-child(5) { animation-delay: 240ms; }
+.revelar--entra > :nth-child(n + 6) { animation-delay: 300ms; }
+
+@keyframes revelar-entra {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
