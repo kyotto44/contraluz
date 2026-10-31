@@ -1,0 +1,114 @@
+/* Espacios: un mosaico asimétrico en el que la foto manda. En el celular, una foto tras otra. */
+
+.espacios {
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  padding-block: var(--espacio-9);
+}
+
+.espacios__cabeza {
+  display: grid;
+  gap: var(--espacio-4);
+  padding-inline: var(--borde);
+  margin-bottom: var(--espacio-7);
+}
+
+.espacios__cabeza h2 {
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.espacios__cabeza p {
+  color: var(--hielo-suave);
+}
+
+.espacios__lista {
+  display: grid;
+  gap: var(--espacio-7);
+}
+
+.espacio {
+  display: grid;
+  align-content: start; /* la fila se estira con su vecina; el texto sigue pegado a la foto */
+  gap: var(--espacio-2);
+}
+
+.espacio h3 {
+  margin-top: var(--espacio-3);
+  font-size: var(--titulo-3);
+  font-stretch: 125%;
+  line-height: 1.05;
+}
+
+.espacio p {
+  max-width: 34rem;
+  color: var(--hielo-suave);
+}
+
+.espacio h3,
+.espacio p {
+  padding-inline: var(--borde);
+}
+
+.espacio__foto {
+  display: block;
+  overflow: hidden;
+}
+
+.espacio__foto img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  transition: transform 700ms var(--curva-salida);
+}
+
+.espacio--patio .espacio__foto img {
+  aspect-ratio: 3 / 2;
+  object-position: 40% 50%;
+}
+
+.espacio--sonido .espacio__foto img {
+  object-position: 55% 50%;
+}
+
+@media (min-width: 48rem) {
+  .espacios__cabeza {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+@media (min-width: 64rem) {
+  .espacios__lista {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: var(--espacio-7) var(--espacio-5);
+    margin-inline: var(--borde);
+  }
+
+  .espacio h3,
+  .espacio p {
+    padding-inline: 0;
+  }
+
+  .espacio--patio {
+    grid-column: 1 / span 8;
+  }
+
+  /* Baja un poco: el mosaico no se lee como una fila de tarjetas iguales. */
+  .espacio--barra {
+    grid-column: 9 / span 4;
+    margin-top: var(--espacio-9);
+  }
+
+  .espacio--sonido {
+    grid-column: 5 / span 4;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .espacio:hover .espacio__foto img {
+    transform: scale(1.03);
+  }
+}

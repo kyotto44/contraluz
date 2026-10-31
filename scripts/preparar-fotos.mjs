@@ -55,6 +55,31 @@ const FOTOS = [
     blanco: 150,
     anchos: [828, 1280, 1920, 2400],
   },
+  {
+    nombre: "barra",
+    autor: "Lucas Chizzali",
+    url: "https://images.unsplash.com/photo-1670781601343-74a4737c22ac?w=2400&q=85&fm=jpg",
+    // Casi todo es sombra: abrir el rango deja ver las botellas detrás del neón.
+    negro: 6,
+    blanco: 120,
+    anchos: [828, 1280, 1920],
+  },
+  {
+    nombre: "sonido",
+    autor: "Zahotoo",
+    url: "https://images.unsplash.com/photo-1767558715201-8d5658abcd0b?w=2400&q=85&fm=jpg",
+    negro: 8,
+    blanco: 190,
+    anchos: [828, 1280, 1920],
+  },
+  {
+    nombre: "patio",
+    autor: "Pavel Lozovikov",
+    url: "https://images.unsplash.com/photo-1520259075182-da7db177117b?w=2400&q=85&fm=jpg",
+    negro: 8,
+    blanco: 225,
+    anchos: [828, 1280, 1920],
+  },
 ];
 
 // Azar con semilla fija: repetir el script da exactamente las mismas imágenes.

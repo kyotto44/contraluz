@@ -6,8 +6,10 @@ import "./styles/main.css";
 
 import { iniciarAgenda } from "./js/modulos/agenda.js";
 import { iniciarResidentes } from "./js/modulos/residentes.js";
+import { revelar } from "./js/modulos/revelar.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
 iniciarUmbral();
 iniciarAgenda();
 iniciarResidentes();
+revelar(document.querySelector(".espacios__lista"));

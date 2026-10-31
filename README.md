@@ -12,7 +12,7 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - [x] Entrada: con el scroll se cruza la puerta y aparece la pista.
 - [x] Agenda: las próximas noches, con fechas que se calculan solas.
 - [x] Residentes: cartel con los cuatro DJs y cuándo toca cada uno.
-- [ ] Espacios y galería
+- [x] Espacios: mosaico de fotos con el patio, la barra y el sonido.
 - [ ] Reservas (Netlify Forms)
 - [ ] Ubicación, horario y pie
 
@@ -59,6 +59,9 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 - Puerta: [Viktor Forgacs](https://unsplash.com/es/fotos/iDF0FXUxGhE)
 - Pista: [Jorik Kleen](https://unsplash.com/es/fotos/pxCGO2S9Db0)
 - Cabina: [Marcela Laskoski](https://unsplash.com/es/fotos/YrtFlrLo2DQ)
+- Patio: [Pavel Lozovikov](https://unsplash.com/es/fotos/HYovA7yPPvI)
+- Barra: [Lucas Chizzali](https://unsplash.com/es/fotos/K_JK5mpSLl0)
+- Sonido: [Zahotoo](https://unsplash.com/es/fotos/Boo4sKszgOI)
 
 ## Seguridad y claves
 
