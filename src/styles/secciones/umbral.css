@@ -118,10 +118,16 @@
   color: var(--laser-nucleo);
 }
 
+/* Hasta dos líneas: un nombre más largo taparía la puerta, y completo se lee en la agenda. */
 .ficha__titulo {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
   font-size: var(--titulo-3);
   font-stretch: 125%;
   line-height: 1.05;
+  overflow-wrap: anywhere;
 }
 
 .ficha__datos {

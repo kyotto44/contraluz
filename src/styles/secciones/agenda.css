@@ -1,0 +1,242 @@
+/* La agenda: un cartel que se lee de un vistazo, de noche y en el celular.
+   La noche que sigue es un campo de luz roja a todo el ancho; las demás, líneas sobre tinta. */
+
+.agenda {
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
+  position: relative;
+  padding-top: var(--espacio-9);
+  background: var(--tinta);
+}
+
+.agenda__cabeza {
+  display: grid;
+  gap: var(--espacio-4);
+  padding-inline: var(--borde);
+  margin-bottom: var(--espacio-7);
+}
+
+.agenda__cabeza h2 {
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  line-height: 0.86;
+  text-transform: uppercase;
+}
+
+.agenda__cabeza p {
+  max-width: 34ch;
+  color: var(--hielo-suave);
+}
+
+@media (min-width: 48rem) {
+  .agenda__cabeza {
+    grid-template-columns: 1fr auto;
+    align-items: end;
+  }
+}
+
+.noche {
+  position: relative;
+  display: grid;
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: var(--espacio-4);
+  align-items: start;
+  padding: var(--espacio-5) var(--borde);
+  border-top: var(--linea) solid var(--tinta-linea);
+}
+
+.noche:last-child {
+  border-bottom: var(--linea) solid var(--tinta-linea);
+}
+
+.noche__fecha {
+  grid-row: span 2; /* el nombre y el botón van seguidos al lado, sin importar qué tan alta sea */
+  display: grid;
+  gap: var(--espacio-2);
+}
+
+.noche__numero {
+  font-family: var(--fuente-titulo);
+  font-size: 4rem;
+  font-weight: 900;
+  font-stretch: 62%;
+  font-variant-numeric: tabular-nums;
+  line-height: 0.82;
+  letter-spacing: -0.015em;
+  transition: color var(--dur-ui) ease;
+}
+
+.noche__dia {
+  display: grid;
+  font-size: var(--texto-chico);
+  line-height: 1.3;
+  color: var(--hielo-suave);
+}
+
+.noche__semana {
+  font-weight: 700;
+  color: var(--hielo);
+}
+
+.noche__cartel {
+  display: grid;
+  gap: var(--espacio-2);
+  min-width: 0;
+}
+
+.noche__aviso {
+  font-size: var(--texto-chico);
+  font-weight: 800;
+}
+
+.noche__titulo {
+  font-size: var(--titulo-3);
+  font-stretch: 125%;
+  line-height: 1.05;
+  overflow-wrap: anywhere;
+}
+
+.noche__datos {
+  color: var(--hielo-suave);
+}
+
+.noche .boton {
+  grid-column: 2;
+  justify-self: start;
+}
+
+@media (min-width: 48rem) {
+  .noche {
+    grid-template-columns: 15rem minmax(0, 1fr) auto;
+    gap: var(--espacio-6);
+    align-items: center;
+  }
+
+  .noche__fecha {
+    grid-row: auto;
+    grid-template-columns: 6rem 1fr;
+    align-items: center;
+    gap: var(--espacio-3);
+  }
+
+  .noche .boton {
+    grid-column: auto;
+  }
+}
+
+/* La noche que sigue: el rojo no es un adorno, es la luz que sale de la cabina. */
+.noche--proxima {
+  /* En el celular la fecha va encima: el nombre es grande y necesita todo el ancho. */
+  grid-template-columns: minmax(0, 1fr);
+  padding-block: var(--espacio-7);
+  background: var(--laser);
+  border-top: 0;
+  color: var(--sobre-laser);
+}
+
+.noche--proxima .noche__fecha {
+  grid-row: auto;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: var(--espacio-3);
+}
+
+.noche--proxima .noche__numero {
+  font-size: 5.5rem;
+}
+
+.noche--proxima .noche__semana,
+.noche--proxima .noche__dia,
+.noche--proxima .noche__datos {
+  color: var(--sobre-laser);
+}
+
+.noche--proxima .noche__titulo {
+  font-size: var(--titulo-2);
+  font-stretch: 100%;
+  line-height: 0.95;
+}
+
+.noche--proxima .boton {
+  grid-column: auto;
+  background: var(--tinta);
+  color: var(--hielo);
+}
+
+.noche--proxima + .noche {
+  border-top: 0;
+}
+
+@media (min-width: 48rem) {
+  .noche--proxima {
+    grid-template-columns: 15rem minmax(0, 1fr) auto;
+  }
+
+  .noche--proxima .noche__numero {
+    font-size: 7.5rem;
+  }
+
+  .noche--proxima .noche__fecha {
+    grid-template-columns: 8rem 1fr;
+  }
+}
+
+/* Al pasar el mouse, una línea de luz recorre la fila, como un láser. */
+.noche:not(.noche--proxima)::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 -1px;
+  height: var(--linea);
+  background: var(--laser);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 400ms var(--curva-salida);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .noche:not(.noche--proxima):hover::after {
+    transform: scaleX(1);
+  }
+
+  .noche:not(.noche--proxima):hover .noche__numero {
+    color: var(--laser);
+  }
+
+  .noche--proxima .boton:hover {
+    background: var(--tinta-alta);
+    color: var(--hielo);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .noche:not(.noche--proxima)::after {
+    transition: none;
+  }
+}
+
+/* Entrada de las filas. Las clases las pone agenda.js: sin JavaScript todo se ve desde el inicio. */
+.agenda__lista--oculta .noche {
+  opacity: 0;
+}
+
+.agenda__lista--entra .noche {
+  animation: noche-entra 600ms var(--curva-salida) both;
+}
+
+.agenda__lista--entra .noche:nth-child(2) { animation-delay: 60ms; }
+.agenda__lista--entra .noche:nth-child(3) { animation-delay: 120ms; }
+.agenda__lista--entra .noche:nth-child(4) { animation-delay: 180ms; }
+.agenda__lista--entra .noche:nth-child(5) { animation-delay: 240ms; }
+.agenda__lista--entra .noche:nth-child(6) { animation-delay: 300ms; }
+
+@keyframes noche-entra {
+  from {
+    opacity: 0;
+    transform: translateY(1rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

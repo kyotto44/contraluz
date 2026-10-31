@@ -7,6 +7,7 @@
   inset: 0 0 auto;
   z-index: var(--capa-cabecera);
   display: flex;
+  flex-wrap: wrap; /* con la letra muy agrandada baja a otra línea en vez de desbordar */
   align-items: center;
   justify-content: space-between;
   gap: var(--espacio-4);

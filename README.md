@@ -10,7 +10,7 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 
 - [x] Base del proyecto: Vite, fuentes autoalojadas, tokens de diseño y configuración segura.
 - [x] Entrada: con el scroll se cruza la puerta y aparece la pista.
-- [ ] Agenda de noches
+- [x] Agenda: las próximas noches, con fechas que se calculan solas.
 - [ ] Residentes
 - [ ] Espacios y galería
 - [ ] Reservas (Netlify Forms)
@@ -22,6 +22,12 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - **Sin librerías y en la GPU.** Son animaciones de CSS que mueven `transform` y `opacity`. Corren por tiempo y no ligadas al scroll: la inercia del touchpad no puede hacer saltar la escena.
 - **Reducir movimiento y sin JavaScript.** La portada queda como dos pantallas quietas, con todo el contenido disponible.
 - **Fotos con una sola luz.** `npm run fotos` pasa cada foto a grises y mapea sus tonos a la paleta: tinta, rojo láser y blanco rosado. Genera WebP en `public/imagenes/`.
+
+## La agenda
+
+- **Nunca queda en el pasado.** Las noches viven en el HTML y se repiten cada dos semanas. `agenda.js` las lleva a sus próximas fechas según la hora de Bogotá, y la noche sigue vigente hasta el cierre, a las 3 a. m.
+- **La próxima noche manda.** Va en una franja de luz roja, y la ficha de la portada copia sus datos: «Esta noche», «Mañana» o «Próxima noche».
+- **Sin JavaScript** la agenda se lee completa, con las fechas escritas en el HTML.
 
 ## Tecnologías
 
@@ -72,7 +78,7 @@ contraluz/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
-│   ├── js/modulos/         umbral.js: activa la entrada y su respaldo
+│   ├── js/modulos/         umbral.js (el cruce de la puerta), agenda.js (las fechas)
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css

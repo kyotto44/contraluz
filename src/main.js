@@ -4,6 +4,8 @@ import "@fontsource-variable/anybody/wdth.css";
 import "@fontsource-variable/manrope";
 import "./styles/main.css";
 
+import { iniciarAgenda } from "./js/modulos/agenda.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
 iniciarUmbral();
+iniciarAgenda();

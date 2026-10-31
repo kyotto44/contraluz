@@ -25,9 +25,17 @@ function crearCruce(seccion) {
   function alMover() {
     const y = window.scrollY;
 
-    // La escena ya empezó a salir de la pantalla: al volver debe seguir como quedó.
+    // La escena ya empezó a salir de la pantalla: al volver debe seguir adentro. Un salto directo
+    // a otra sección también llega aquí, y sin verse el cruce queda hecho de una vez.
     if (seccion.getBoundingClientRect().bottom < window.innerHeight) {
       ancla = y;
+      if (!adentro) {
+        adentro = true;
+        for (const animacion of animaciones) {
+          animacion.playbackRate = 1;
+          animacion.finish();
+        }
+      }
       return;
     }
 
