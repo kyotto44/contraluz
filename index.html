@@ -8,6 +8,7 @@
     <title>Contraluz · Techno y house en Bogotá</title>
     <meta name="description" content="Contraluz es una discoteca ficticia de techno y house en Bogotá: agenda, residentes, espacios y reservas. Proyecto de portafolio." />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" as="image" href="/imagenes/puerta-3000.avif" type="image/avif" fetchpriority="high" />
     <script type="module" src="/src/main.js"></script>
   </head>
   <body>
@@ -20,15 +21,49 @@
           <li><a href="#agenda">Agenda</a></li>
           <li><a href="#residentes">Residentes</a></li>
           <li><a href="#espacios">Espacios</a></li>
-          <li><a class="cabecera__reservar" href="#reservas">Reservar</a></li>
+          <li><a class="boton boton--chico" href="#reservas">Reservar</a></li>
         </ul>
       </nav>
     </header>
 
     <main id="contenido">
-      <section class="base sobre-luz">
-        <h1 class="base__titulo">Contraluz</h1>
-        <p class="base__texto">Techno y house en Bogotá. Estamos armando la puerta: la agenda, los residentes y las reservas llegan en los próximos módulos.</p>
+      <section class="umbral">
+        <div class="umbral__escena">
+          <div class="umbral__afuera">
+            <picture class="umbral__puerta">
+              <source srcset="/imagenes/puerta-3000.avif" type="image/avif" />
+              <img src="/imagenes/puerta-3000.webp" width="3000" height="1600" fetchpriority="high" alt="Una persona de pie en una puerta abierta, a contraluz de una luz roja que sale hacia afuera." />
+            </picture>
+
+            <div class="umbral__laseres" aria-hidden="true">
+              <span class="laser laser--1"></span>
+              <span class="laser laser--2"></span>
+              <span class="laser laser--3"></span>
+            </div>
+
+            <h1 class="umbral__marca">Contraluz</h1>
+
+            <div class="ficha">
+              <p class="ficha__fecha">Próxima noche: sábado 7 de noviembre</p>
+              <h2 class="ficha__titulo">Señal 808 y Mara K</h2>
+              <p class="ficha__datos">Techno. Puerta a las 10 p. m. Entrada $45.000.</p>
+              <a class="boton" href="#reservas">Reservar</a>
+            </div>
+          </div>
+
+          <div class="umbral__destello" aria-hidden="true"></div>
+
+          <div class="umbral__adentro">
+            <picture class="umbral__multitud">
+              <source type="image/avif" sizes="100vw" srcset="/imagenes/multitud-828.avif 828w, /imagenes/multitud-1280.avif 1280w, /imagenes/multitud-1920.avif 1920w, /imagenes/multitud-2400.avif 2400w" />
+              <img src="/imagenes/multitud-1280.webp" sizes="100vw" srcset="/imagenes/multitud-828.webp 828w, /imagenes/multitud-1280.webp 1280w, /imagenes/multitud-1920.webp 1920w, /imagenes/multitud-2400.webp 2400w" width="2400" height="1600" loading="lazy" decoding="async" alt="Siluetas de personas en la pista, de frente a los haces de luz de la cabina." />
+            </picture>
+            <div class="umbral__texto">
+              <h2>Aquí la luz viene de la cabina</h2>
+              <p>Techno y house de jueves a sábado, de 10 p. m. a 3 a. m. La pista queda de frente a los DJs: desde cualquier punto, todos se ven a contraluz.</p>
+            </div>
+          </div>
+        </div>
       </section>
     </main>
 

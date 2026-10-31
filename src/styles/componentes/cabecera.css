@@ -1,16 +1,26 @@
-/* Cabecera: una sola línea, fija arriba, respeta el notch. */
+/* Cabecera: una sola línea sobre la escena, respeta el notch.
+   Sin línea divisoria: se funde hacia abajo, y la capa es casi opaca para que
+   el menú se lea aunque detrás pase la luz más fuerte de la entrada. */
 
 .cabecera {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto;
   z-index: var(--capa-cabecera);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--espacio-4);
   padding: calc(var(--espacio-3) + env(safe-area-inset-top, 0px)) calc(var(--margen) + env(safe-area-inset-right, 0px)) var(--espacio-3) calc(var(--margen) + env(safe-area-inset-left, 0px));
-  background: var(--tinta);
-  border-bottom: var(--linea) solid var(--tinta-linea);
+  background: rgb(6 8 15 / 0.86);
+}
+
+.cabecera::after {
+  content: "";
+  position: absolute;
+  inset: 100% 0 auto;
+  height: var(--espacio-5);
+  background: linear-gradient(rgb(6 8 15 / 0.86), rgb(6 8 15 / 0));
+  pointer-events: none;
 }
 
 .cabecera__marca {
@@ -31,29 +41,13 @@
   font-weight: 600;
 }
 
-.cabecera__menu a {
+.cabecera__menu a:not(.boton) {
+  color: var(--hielo-suave);
   text-decoration: none;
   transition: color var(--dur-ui) ease;
 }
 
-.cabecera__menu a:not(.cabecera__reservar) {
-  color: var(--hielo-suave);
-}
-
-.cabecera__reservar {
-  display: inline-block;
-  padding: var(--espacio-2) var(--espacio-4);
-  background: var(--laser);
-  color: var(--sobre-laser);
-  border-radius: var(--radio);
-  transition: transform var(--dur-toque) var(--curva-salida), background-color var(--dur-ui) ease;
-}
-
-.cabecera__reservar:active {
-  transform: scale(0.97);
-}
-
-/* En celular quedan la marca y Reservar; el resto del menú vuelve cuando haya espacio. */
+/* En celular quedan la marca y Reservar; el resto del menú llega con sus secciones. */
 @media (max-width: 40rem) {
   .cabecera__menu li:not(:last-child) {
     display: none;
@@ -61,11 +55,7 @@
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .cabecera__menu a:not(.cabecera__reservar):hover {
+  .cabecera__menu a:not(.boton):hover {
     color: var(--hielo);
-  }
-
-  .cabecera__reservar:hover {
-    background: var(--laser-nucleo);
   }
 }

@@ -2,7 +2,8 @@
 @import "./base/reset.css";
 @import "./base/global.css";
 
+@import "./componentes/boton.css";
 @import "./componentes/cabecera.css";
 
-@import "./secciones/base.css";
+@import "./secciones/umbral.css";
 @import "./secciones/pie.css";

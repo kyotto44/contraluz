@@ -10,13 +10,18 @@ html {
   -webkit-text-size-adjust: 100%;      /* sin agrandar letras al girar el celular */
   -webkit-tap-highlight-color: transparent; /* sin el destello gris al tocar; cada control tiene su :active */
   text-size-adjust: 100%;
-  scroll-padding-top: 5rem;            /* las anclas no quedan debajo de la cabecera */
 }
 
 @media (prefers-reduced-motion: no-preference) {
   html {
     scroll-behavior: smooth;
   }
+}
+
+/* Las anclas no quedan debajo de la cabecera. Va en cada destino y no como scroll-padding
+   en html, porque ese valor también le corre el inicio a las animaciones ligadas al scroll. */
+[id] {
+  scroll-margin-top: 5rem;
 }
 
 body {

@@ -1,0 +1,494 @@
+/* La entrada: dos escenas, afuera y adentro.
+   Sin .umbral-viva (sin JavaScript o con «reducir movimiento») van una debajo de la otra.
+   Con .umbral-viva, la escena se queda fija y el scroll atraviesa la puerta. */
+
+.umbral {
+  /* Dónde queda la puerta en pantalla y qué tan alta se ve. */
+  --puerta-alto: 34svh;
+  --puerta-x: 56%;
+  --puerta-y: 62%;
+
+  /* Medidas tomadas de la foto recortada (3000 x 1600). */
+  --imagen-alto: calc(var(--puerta-alto) / 0.195);
+  --imagen-ancho: calc(var(--imagen-alto) * 1.875);
+}
+
+@media (max-aspect-ratio: 1 / 1) {
+  .umbral {
+    --puerta-alto: 28svh;
+    --puerta-x: 34%;
+    --puerta-y: 47%;
+  }
+}
+
+.umbral__escena {
+  container-type: inline-size;
+  background: var(--tinta);
+}
+
+.umbral__afuera {
+  position: relative;
+  height: 100svh;
+  overflow: hidden;
+}
+
+.umbral__puerta {
+  position: absolute;
+  top: calc(var(--puerta-y) - var(--imagen-alto) * 0.4575);
+  left: calc(var(--puerta-x) - var(--imagen-ancho) * 0.3867);
+  width: var(--imagen-ancho);
+  height: var(--imagen-alto);
+  max-width: none;
+  /* El zoom apunta al hueco de luz sobre la cabeza: se pasa junto a la persona, no contra ella. */
+  transform-origin: 39.5% 38.2%;
+}
+
+.umbral__puerta img {
+  width: 100%;
+  height: 100%;
+}
+
+.umbral__laseres {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.laser {
+  position: absolute;
+  /* Nacen del dintel de la puerta. */
+  top: calc(var(--puerta-y) - var(--puerta-alto) / 2 - 140vmax);
+  left: var(--puerta-x);
+  width: 2px;
+  height: 140vmax;
+  background: linear-gradient(to top, var(--laser-nucleo), var(--laser) 22%, rgb(255 45 70 / 0) 72%);
+  transform-origin: 50% 100%;
+  opacity: 0.55;
+}
+
+.laser--1 {
+  transform: rotate(-38deg);
+}
+
+.laser--2 {
+  transform: rotate(24deg);
+}
+
+.laser--3 {
+  transform: rotate(66deg);
+}
+
+.umbral__marca {
+  position: absolute;
+  top: calc(4.75rem + env(safe-area-inset-top, 0px));
+  left: 50%;
+  /* A este ancho la palabra mide 4,2 veces su tamaño: casi toda la pantalla. */
+  font-size: min(22.6cqi, 38svh);
+  font-weight: 900;
+  font-stretch: 62%;
+  line-height: 0.86;
+  letter-spacing: -0.015em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--hielo);
+  transform: translateX(-50%);
+}
+
+/* Celular en horizontal: el nombre cede para no tocar la ficha. */
+@media (max-height: 30rem) {
+  .umbral__marca {
+    font-size: min(22.6cqi, 29svh);
+  }
+}
+
+.ficha {
+  position: absolute;
+  left: calc(var(--margen) + env(safe-area-inset-left, 0px));
+  bottom: calc(var(--espacio-6) + env(safe-area-inset-bottom, 0px));
+  display: grid;
+  justify-items: start;
+  gap: var(--espacio-2);
+  max-width: min(28rem, 100% - 2 * var(--margen));
+}
+
+.ficha__fecha {
+  font-size: var(--texto-chico);
+  font-weight: 700;
+  color: var(--laser-nucleo);
+}
+
+.ficha__titulo {
+  font-size: var(--titulo-3);
+  font-stretch: 125%;
+  line-height: 1.05;
+}
+
+.ficha__datos {
+  margin-bottom: var(--espacio-3);
+  color: var(--hielo);
+}
+
+/* Solo existe durante el cruce: en reposo no pinta nada. */
+.umbral__destello {
+  display: none;
+}
+
+.umbral__adentro {
+  position: relative;
+  display: grid;
+  align-items: end;
+  min-height: 100svh;
+  overflow: hidden;
+}
+
+.umbral__multitud {
+  position: absolute;
+  inset: 0;
+}
+
+.umbral__multitud img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 45% 100%;
+}
+
+/* La parte baja de la foto ya es multitud oscura; el velo asegura el contraste del texto. */
+.umbral__adentro::after {
+  content: "";
+  position: absolute;
+  inset: 28% 0 0;
+  background: linear-gradient(rgb(6 8 15 / 0), rgb(6 8 15 / 0.72) 42%, rgb(6 8 15 / 0.92) 78%);
+}
+
+.umbral__texto {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: var(--espacio-4);
+  max-width: 44rem;
+  padding: 0 calc(var(--margen) + env(safe-area-inset-right, 0px)) calc(var(--espacio-7) + env(safe-area-inset-bottom, 0px)) calc(var(--margen) + env(safe-area-inset-left, 0px));
+}
+
+.umbral__texto h2 {
+  font-size: var(--titulo-2);
+  font-stretch: 110%;
+}
+
+.umbral__texto p {
+  max-width: var(--medida);
+  font-size: var(--texto-grande);
+}
+
+/* ---------- Con movimiento: la escena se queda fija y el scroll la recorre ---------- */
+
+.umbral-viva {
+  timeline-scope: --umbral;
+}
+
+.umbral-viva .umbral {
+  /* Cuánto scroll dura el cruce. */
+  height: 360lvh;
+  view-timeline: --umbral block;
+}
+
+.umbral-viva .umbral__escena {
+  position: sticky;
+  top: 0;
+  /* lvh: la escena cubre también el espacio que deja la barra del navegador al esconderse. */
+  height: 100lvh;
+  overflow: hidden;
+}
+
+.umbral-viva .umbral__afuera {
+  height: 100%;
+}
+
+/* La ficha se ancla a la parte siempre visible, aunque la barra del navegador esté abierta. */
+.umbral-viva .ficha {
+  bottom: calc(100lvh - 100svh + var(--espacio-6) + env(safe-area-inset-bottom, 0px));
+}
+
+.umbral-viva .umbral__adentro {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  opacity: 0;
+}
+
+.umbral-viva .umbral__texto {
+  padding-bottom: calc(100lvh - 100svh + var(--espacio-7) + env(safe-area-inset-bottom, 0px));
+}
+
+.umbral-viva .umbral__destello {
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: var(--laser-nucleo);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Todas duran 1000ms en pausa; lo que las mueve es el progreso del scroll. */
+.umbral-viva .umbral__puerta,
+.umbral-viva .laser,
+.umbral-viva .umbral__marca,
+.umbral-viva .ficha,
+.umbral-viva .umbral__destello,
+.umbral-viva .umbral__adentro,
+.umbral-viva .umbral__multitud,
+.umbral-viva .umbral__texto,
+.umbral-viva .cabecera__marca {
+  animation-duration: 1000ms;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+  animation-play-state: paused;
+}
+
+.umbral-viva .umbral__puerta {
+  animation-name: umbral-puerta;
+  will-change: transform;
+}
+
+.umbral-viva .laser--1 {
+  animation-name: umbral-laser-1;
+}
+
+.umbral-viva .laser--2 {
+  animation-name: umbral-laser-2;
+}
+
+.umbral-viva .laser--3 {
+  animation-name: umbral-laser-3;
+}
+
+.umbral-viva .umbral__marca {
+  animation-name: umbral-marca;
+}
+
+.umbral-viva .ficha {
+  animation-name: umbral-ficha;
+}
+
+.umbral-viva .umbral__destello {
+  animation-name: umbral-destello;
+}
+
+.umbral-viva .umbral__adentro {
+  animation-name: umbral-adentro;
+}
+
+.umbral-viva .umbral__multitud {
+  animation-name: umbral-multitud;
+  will-change: transform;
+}
+
+.umbral-viva .umbral__texto {
+  animation-name: umbral-texto;
+}
+
+/* En la portada el nombre ya está en grande: la marca de la cabecera entra al subir. */
+.umbral-viva .cabecera__marca {
+  animation-name: umbral-cabecera;
+}
+
+.umbral-viva .cabecera__marca:focus-visible {
+  opacity: 1 !important;
+}
+
+@supports (animation-timeline: view()) {
+  .umbral-viva .umbral__puerta,
+  .umbral-viva .laser,
+  .umbral-viva .umbral__marca,
+  .umbral-viva .ficha,
+  .umbral-viva .umbral__destello,
+  .umbral-viva .umbral__adentro,
+  .umbral-viva .umbral__multitud,
+  .umbral-viva .umbral__texto,
+  .umbral-viva .cabecera__marca {
+    animation-timeline: --umbral;
+    animation-range: contain 0% contain 100%;
+    animation-play-state: running;
+  }
+}
+
+/* La escala crece más rápido al final para que el avance se sienta parejo. */
+@keyframes umbral-puerta {
+  0% {
+    transform: scale(1);
+  }
+  25% {
+    transform: scale(1.5);
+  }
+  45% {
+    transform: scale(2.8);
+  }
+  60% {
+    transform: scale(6);
+  }
+  72% {
+    transform: scale(14);
+  }
+  100% {
+    transform: scale(14);
+  }
+}
+
+@keyframes umbral-laser-1 {
+  from {
+    transform: rotate(-38deg);
+    opacity: 0.55;
+  }
+  45% {
+    opacity: 0.9;
+  }
+  62%,
+  to {
+    transform: rotate(-4deg);
+    opacity: 0;
+  }
+}
+
+@keyframes umbral-laser-2 {
+  from {
+    transform: rotate(24deg);
+    opacity: 0.55;
+  }
+  45% {
+    opacity: 0.9;
+  }
+  62%,
+  to {
+    transform: rotate(58deg);
+    opacity: 0;
+  }
+}
+
+@keyframes umbral-laser-3 {
+  from {
+    transform: rotate(66deg);
+    opacity: 0.55;
+  }
+  45% {
+    opacity: 0.9;
+  }
+  62%,
+  to {
+    transform: rotate(104deg);
+    opacity: 0;
+  }
+}
+
+/* El nombre se ensancha hasta salirse de la pantalla: la puerta lo abre. */
+@keyframes umbral-marca {
+  from {
+    font-stretch: 62%;
+    opacity: 1;
+  }
+  30% {
+    opacity: 1;
+  }
+  42%,
+  to {
+    font-stretch: 150%;
+    opacity: 0;
+  }
+}
+
+@keyframes umbral-ficha {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  14% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  26%,
+  to {
+    transform: translateY(-1.5rem);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+/* Un solo paso por la luz, ligado al scroll: no parpadea. */
+@keyframes umbral-destello {
+  0%,
+  58% {
+    opacity: 0;
+  }
+  70% {
+    opacity: 1;
+  }
+  84%,
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes umbral-adentro {
+  0%,
+  68% {
+    opacity: 0;
+  }
+  72%,
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes umbral-multitud {
+  0%,
+  68% {
+    transform: scale(1.22);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes umbral-texto {
+  0%,
+  80% {
+    transform: translateY(0.75rem);
+    opacity: 0;
+  }
+  90%,
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes umbral-cabecera {
+  0%,
+  22% {
+    opacity: 0;
+  }
+  34%,
+  to {
+    opacity: 1;
+  }
+}
+
+/* Con «reducir movimiento» no hay zoom ni desplazamientos: adentro solo aparece con un fundido. */
+@media (prefers-reduced-motion: reduce) {
+  @supports (animation-timeline: view()) {
+    .umbral__multitud,
+    .umbral__texto {
+      animation: umbral-fundido linear both;
+      animation-timeline: view();
+      animation-range: entry 10% entry 70%;
+    }
+  }
+}
+
+@keyframes umbral-fundido {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}

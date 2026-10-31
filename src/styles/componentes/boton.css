@@ -1,0 +1,38 @@
+/* El botón principal tiene el color de la puerta: sobre la neblina roja, un botón rojo se perdería. */
+
+.boton {
+  display: inline-block;
+  padding: var(--espacio-3) var(--espacio-5);
+  background: var(--laser-nucleo);
+  color: var(--tinta);
+  font-weight: 700;
+  line-height: 1.2;
+  text-decoration: none;
+  border-radius: var(--radio);
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  transition: transform var(--dur-toque) var(--curva-salida), background-color var(--dur-ui) ease;
+}
+
+/* Responde al apoyar el dedo, no al soltarlo. */
+.boton:active {
+  transform: scale(0.97);
+}
+
+.boton--chico {
+  padding: var(--espacio-2) var(--espacio-4);
+}
+
+/* Con el dedo, todo botón llega a 44px de alto. */
+@media (pointer: coarse) {
+  .boton--chico {
+    padding-block: 0.875rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .boton:hover {
+    background: var(--hielo);
+  }
+}
