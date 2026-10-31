@@ -2,7 +2,6 @@
    La noche que sigue es un campo de luz roja a todo el ancho; las demás, líneas sobre tinta. */
 
 .agenda {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   position: relative;
   padding-top: var(--espacio-9);
   background: var(--tinta);
@@ -13,14 +12,6 @@
   gap: var(--espacio-4);
   padding-inline: var(--borde);
   margin-bottom: var(--espacio-7);
-}
-
-.agenda__cabeza h2 {
-  font-size: var(--titulo-1);
-  font-weight: 900;
-  font-stretch: 75%;
-  line-height: 0.86;
-  text-transform: uppercase;
 }
 
 .agenda__cabeza p {

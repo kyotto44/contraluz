@@ -6,8 +6,8 @@ export default defineConfig({
     // Navegadores de los últimos años: CSS anidado, :has() y módulos ES sin polyfills.
     target: "es2022",
     cssMinify: true,
-    // Imágenes pequeñas (íconos) van dentro del CSS; las fotos quedan como archivo.
-    assetsInlineLimit: 2048,
+    // Nada se incrusta como data: la CSP solo permite imágenes del propio sitio.
+    assetsInlineLimit: 0,
     rollupOptions: {
       input: {
         inicio: resolve(import.meta.dirname, "index.html"),

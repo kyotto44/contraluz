@@ -1,7 +1,6 @@
 /* Residentes: un cartel. Una mano a contraluz y los nombres en la misma letra de la portada. */
 
 .residentes {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   margin-top: var(--espacio-9);
   background: var(--tinta);
 }
@@ -9,6 +8,7 @@
 .residentes__portada {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   align-items: end;
   overflow: hidden;
 }
@@ -42,14 +42,6 @@
   display: grid;
   gap: var(--espacio-4);
   padding-inline: var(--borde);
-}
-
-.residentes__cabeza h2 {
-  font-size: var(--titulo-1);
-  font-weight: 900;
-  font-stretch: 75%;
-  line-height: 0.86;
-  text-transform: uppercase;
 }
 
 .residentes__cabeza p {

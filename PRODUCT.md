@@ -8,7 +8,7 @@ web
 
 ## Stack
 
-Vite + HTML, CSS y JavaScript sin frameworks (módulos ES), igual que los proyectos anteriores del portafolio (Páramo). Fuentes autoalojadas con Fontsource. Publicación en Netlify con cabeceras de seguridad y CSP estricta (solo recursos del propio dominio). Formularios con Netlify Forms. Sin librerías de animación: CSS (incluidas las animaciones ligadas al scroll) con respaldo de IntersectionObserver.
+Vite + HTML, CSS y JavaScript sin frameworks (módulos ES), igual que los proyectos anteriores del portafolio (Páramo). Fuentes autoalojadas con Fontsource. Publicación en Netlify con cabeceras de seguridad y CSP estricta (solo recursos del propio dominio). Formularios con Netlify Forms. Sin librerías de animación: las animaciones son CSS y corren por tiempo; el scroll solo indica el sentido, y un módulo de JavaScript decide cuándo corren. IntersectionObserver revela cada bloque la primera vez que entra en pantalla.
 
 ## Users
 
@@ -41,7 +41,7 @@ El nombre es el mecanismo: a contraluz, la gente se ve como silueta contra la lu
 ## Brand Commitments
 
 - Nombre: **Contraluz**. Ciudad: Bogotá. Música: techno y house.
-- Dirección visual elegida por el usuario: «Umbral», cinematográfica e inmersiva. El scroll te hace atravesar la puerta del club, hay fotos en capas con zoom y láseres que siguen el scroll. Paleta de tinta casi negra, blanco frío y rojo láser.
+- Dirección visual elegida por el usuario: «Umbral», cinematográfica e inmersiva. Al bajar con el scroll, la puerta del club se atraviesa sola en 1,5 segundos; al subir, la escena se devuelve. Hay fotos en capas con zoom y láseres que salen con la puerta. Paleta de tinta casi negra, blanco frío y rojo láser.
 - Textos en español de Colombia, directos, sin exceso de jerga.
 
 ## Evidence on Hand

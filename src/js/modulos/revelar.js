@@ -2,7 +2,7 @@
 // Sin JavaScript o con «reducir movimiento» todo se ve desde el inicio.
 
 export function revelar(elemento) {
-  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (!elemento || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
 
   elemento.classList.add("revelar--oculto");
   const observador = new IntersectionObserver(

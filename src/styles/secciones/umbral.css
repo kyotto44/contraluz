@@ -110,6 +110,19 @@
   justify-items: start;
   gap: var(--espacio-2);
   max-width: min(28rem, 100% - 2 * var(--margen));
+  isolation: isolate;
+}
+
+/* En pantallas verticales o muy bajas la ficha cae cerca de la puerta: una sombra asegura que se lea. */
+@media (max-aspect-ratio: 1 / 1), (max-height: 22rem) and (max-width: 40rem) {
+  .ficha::before {
+    content: "";
+    position: absolute;
+    inset: -4rem -100vw -100vh;
+    z-index: -1;
+    background: linear-gradient(rgb(6 8 15 / 0), rgb(6 8 15 / 0.85) 4rem);
+    pointer-events: none;
+  }
 }
 
 .ficha__fecha {
@@ -187,6 +200,31 @@
   font-size: var(--texto-grande);
 }
 
+/* Pantalla muy baja, como con zoom al 400 %: el nombre y la ficha no caben uno sobre otro, así
+   que van en flujo normal y sin cruce (ver umbral.js). */
+@media (max-height: 22rem) and (max-width: 40rem) {
+  .umbral__afuera {
+    height: auto;
+    min-height: 100svh;
+    padding: 5rem var(--margen) var(--espacio-5);
+  }
+
+  .umbral__marca {
+    position: relative;
+    top: auto;
+    left: auto;
+    font-size: 20cqi;
+    transform: none;
+  }
+
+  .ficha {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    margin-top: var(--espacio-4);
+  }
+}
+
 /* ---------- Con movimiento: la escena se queda fija y la puerta se cruza sola ---------- */
 
 .umbral-viva .umbral {
@@ -216,6 +254,8 @@
   inset: 0;
   min-height: 0;
   opacity: 0;
+  /* Invisible sigue encima de la portada: sin esto se traga los clics del botón de la ficha. */
+  pointer-events: none;
   /* Deja la capa lista antes de aparecer, para no tener que pintarla justo en el cruce. */
   will-change: opacity;
 }

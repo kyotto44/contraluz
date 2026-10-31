@@ -24,7 +24,7 @@ const TONOS = [
 const FOTOS = [
   {
     nombre: "puerta",
-    autor: "Viktor Forgacs",
+    // Foto de Viktor Forgacs.
     url: "https://images.unsplash.com/photo-1634335572482-c43700ecbc23?q=88&fm=jpg",
     // Solo la zona de la puerta y sus haces: el resto de la foto es negro.
     recorte: { left: 0, top: 700, width: 3000, height: 1600 },
@@ -40,7 +40,7 @@ const FOTOS = [
   },
   {
     nombre: "multitud",
-    autor: "Jorik Kleen",
+    // Foto de Jorik Kleen.
     url: "https://images.unsplash.com/photo-1540496817185-62c9f059f1c7?w=2400&q=85&fm=jpg",
     negro: 18,
     blanco: 245,
@@ -48,7 +48,7 @@ const FOTOS = [
   },
   {
     nombre: "cabina",
-    autor: "Marcela Laskoski",
+    // Foto de Marcela Laskoski.
     url: "https://images.unsplash.com/photo-1470225620780-dba8ba36b745?w=2400&q=85&fm=jpg",
     // El fondo morado es oscuro en grises: se abre el rango para que se vuelva luz roja.
     negro: 8,
@@ -57,7 +57,7 @@ const FOTOS = [
   },
   {
     nombre: "barra",
-    autor: "Lucas Chizzali",
+    // Foto de Lucas Chizzali.
     url: "https://images.unsplash.com/photo-1670781601343-74a4737c22ac?w=2400&q=85&fm=jpg",
     // Casi todo es sombra: abrir el rango deja ver las botellas detrás del neón.
     negro: 6,
@@ -66,7 +66,7 @@ const FOTOS = [
   },
   {
     nombre: "sonido",
-    autor: "Zahotoo",
+    // Foto de Zahotoo.
     url: "https://images.unsplash.com/photo-1767558715201-8d5658abcd0b?w=2400&q=85&fm=jpg",
     negro: 8,
     blanco: 190,
@@ -74,7 +74,7 @@ const FOTOS = [
   },
   {
     nombre: "patio",
-    autor: "Pavel Lozovikov",
+    // Foto de Pavel Lozovikov.
     url: "https://images.unsplash.com/photo-1520259075182-da7db177117b?w=2400&q=85&fm=jpg",
     negro: 8,
     blanco: 225,
@@ -82,7 +82,7 @@ const FOTOS = [
   },
   {
     nombre: "manos",
-    autor: "Kelvin Moquete",
+    // Foto de Kelvin Moquete.
     url: "https://images.unsplash.com/photo-1590721791974-d6c8ca43f6bc?w=2400&q=85&fm=jpg",
     // Con cielo de sobra para el título. Abajo solo queda sombra, que empalma con la tinta de la página.
     recorte: { left: 0, top: 200, width: 2400, height: 1800 },

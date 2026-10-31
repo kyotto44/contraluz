@@ -1,7 +1,6 @@
 /* El pie cierra con el nombre a todo el ancho, como lo abrió la portada. */
 
 .pie {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   container-type: inline-size;
   overflow: hidden;
   padding: var(--espacio-7) var(--borde) calc(var(--espacio-5) + env(safe-area-inset-bottom, 0px));
@@ -39,6 +38,12 @@
 .pie__notas a {
   color: var(--hielo);
   transition: color var(--dur-ui) ease;
+}
+
+/* Va sola en su línea: no cuenta como enlace dentro de un texto y necesita su propio alto. */
+.pie__notas p:last-child a {
+  display: inline-block;
+  padding-block: var(--espacio-3);
 }
 
 /* Firma, no contenido: el nombre ya se anuncia en la cabecera. */

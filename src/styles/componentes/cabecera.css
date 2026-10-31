@@ -7,6 +7,7 @@
   inset: 0 0 auto;
   z-index: var(--capa-cabecera);
   display: flex;
+  flex-wrap: wrap; /* con la letra muy agrandada baja a otra línea en vez de sacar el botón de la pantalla */
   align-items: center;
   justify-content: space-between;
   gap: var(--espacio-4);
@@ -25,7 +26,8 @@
 
 .cabecera__marca {
   font-family: var(--fuente-titulo);
-  font-size: 1.25rem;
+  /* En los celulares más angostos cede un poco para compartir la línea con el botón. */
+  font-size: min(1.25rem, 5.2vw);
   font-weight: 800;
   font-stretch: 150%;
   letter-spacing: -0.01em;
@@ -51,6 +53,15 @@
 @media (max-width: 40rem) {
   .cabecera__menu li:not(:last-child) {
     display: none;
+  }
+}
+
+/* Con el dedo, los enlaces de la cabecera también llegan a 44px de alto. */
+@media (pointer: coarse) {
+  .cabecera__marca,
+  .cabecera__menu a:not(.boton) {
+    display: inline-block;
+    padding-block: 0.75rem;
   }
 }
 

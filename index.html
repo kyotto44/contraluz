@@ -67,12 +67,13 @@
 
       <section class="agenda" id="agenda" aria-labelledby="agenda-titulo">
         <div class="agenda__cabeza">
-          <h2 id="agenda-titulo">Agenda</h2>
+          <h2 class="titulo-seccion" id="agenda-titulo">Agenda</h2>
           <p>Puerta a las 10 p. m. Cerramos a las 3 a. m. Noches y precios de demostración.</p>
+          <noscript><p>Sin JavaScript estas fechas son de ejemplo y pueden haber pasado. La agenda se repite cada dos semanas, de jueves a sábado.</p></noscript>
         </div>
 
         <ol class="agenda__lista" role="list">
-          <li class="noche noche--proxima sobre-luz">
+          <li class="noche noche--proxima sobre-luz" data-djs="senal-808 mara-k">
             <time class="noche__fecha" datetime="2026-11-07">
               <span class="noche__numero">7</span>
               <span class="noche__dia"><span class="noche__semana">sábado</span> <span class="noche__mes">de noviembre</span></span>
@@ -95,7 +96,7 @@
             </div>
             <a class="boton" href="#reservas" aria-label="Reservar para el jueves 12 de noviembre">Reservar</a>
           </li>
-          <li class="noche">
+          <li class="noche" data-djs="mara-k">
             <time class="noche__fecha" datetime="2026-11-13">
               <span class="noche__numero">13</span>
               <span class="noche__dia"><span class="noche__semana">viernes</span> <span class="noche__mes">de noviembre</span></span>
@@ -106,7 +107,7 @@
             </div>
             <a class="boton" href="#reservas" aria-label="Reservar para el viernes 13 de noviembre">Reservar</a>
           </li>
-          <li class="noche">
+          <li class="noche" data-djs="vera-ohm tundra">
             <time class="noche__fecha" datetime="2026-11-14">
               <span class="noche__numero">14</span>
               <span class="noche__dia"><span class="noche__semana">sábado</span> <span class="noche__mes">de noviembre</span></span>
@@ -117,7 +118,7 @@
             </div>
             <a class="boton" href="#reservas" aria-label="Reservar para el sábado 14 de noviembre">Reservar</a>
           </li>
-          <li class="noche">
+          <li class="noche" data-djs="vera-ohm">
             <time class="noche__fecha" datetime="2026-11-19">
               <span class="noche__numero">19</span>
               <span class="noche__dia"><span class="noche__semana">jueves</span> <span class="noche__mes">de noviembre</span></span>
@@ -128,7 +129,7 @@
             </div>
             <a class="boton" href="#reservas" aria-label="Reservar para el jueves 19 de noviembre">Reservar</a>
           </li>
-          <li class="noche">
+          <li class="noche" data-djs="tundra">
             <time class="noche__fecha" datetime="2026-11-20">
               <span class="noche__numero">20</span>
               <span class="noche__dia"><span class="noche__semana">viernes</span> <span class="noche__mes">de noviembre</span></span>
@@ -148,34 +149,34 @@
             <img src="/imagenes/cabina-1280.webp" sizes="100vw" srcset="/imagenes/cabina-828.webp 828w, /imagenes/cabina-1280.webp 1280w, /imagenes/cabina-1920.webp 1920w, /imagenes/cabina-2400.webp 2400w" width="2400" height="1600" loading="lazy" decoding="async" alt="Silueta de una mano sobre una consola de DJ, a contraluz de una luz roja." />
           </picture>
           <div class="residentes__cabeza">
-            <h2 id="residentes-titulo">Residentes</h2>
+            <h2 class="titulo-seccion" id="residentes-titulo">Residentes</h2>
             <p>Los cuatro DJs de la casa. Ficticios, como todo el club.</p>
           </div>
         </div>
 
         <ul class="residentes__lista" role="list">
-          <li class="residente">
+          <li class="residente" data-dj="senal-808">
             <h3 class="residente__nombre">Señal 808</h3>
             <div class="residente__datos">
               <p>Techno seco, de bombo y pausas largas. Es quien cierra los sábados.</p>
               <a class="residente__proxima" href="#agenda" hidden></a>
             </div>
           </li>
-          <li class="residente">
+          <li class="residente" data-dj="mara-k">
             <h3 class="residente__nombre">Mara K</h3>
             <div class="residente__datos">
               <p>House con voces y vinilos. Sus noches arrancan suave y terminan arriba.</p>
               <a class="residente__proxima" href="#agenda" hidden></a>
             </div>
           </li>
-          <li class="residente">
+          <li class="residente" data-dj="vera-ohm">
             <h3 class="residente__nombre">Vera Ohm</h3>
             <div class="residente__datos">
               <p>House profundo para empezar el fin de semana. Mezcla despacio y deja respirar cada disco.</p>
               <a class="residente__proxima" href="#agenda" hidden></a>
             </div>
           </li>
-          <li class="residente">
+          <li class="residente" data-dj="tundra">
             <h3 class="residente__nombre">Tundra</h3>
             <div class="residente__datos">
               <p>Techno frío y rápido, armado en vivo con máquinas y sin computador.</p>
@@ -187,7 +188,7 @@
 
       <section class="espacios" id="espacios" aria-labelledby="espacios-titulo">
         <div class="espacios__cabeza">
-          <h2 id="espacios-titulo">Espacios</h2>
+          <h2 class="titulo-seccion" id="espacios-titulo">Espacios</h2>
           <p>Lo que hay alrededor de la pista.</p>
         </div>
 
@@ -230,12 +231,12 @@
             <p class="reservas__aviso"><strong>Es una demostración.</strong> Contraluz no existe y nadie te va a llamar: no dejes datos reales.</p>
           </div>
 
-          <form class="reserva" name="reservas" method="POST" action="/gracias/" data-netlify="true" netlify-honeypot="empresa">
+          <form class="reserva" name="reservas" method="POST" action="/gracias/" data-netlify="true" netlify-honeypot="puerta-lateral">
             <input type="hidden" name="form-name" value="reservas" />
 
-            <div class="reserva__trampa">
-              <label for="reserva-empresa">No llenes este campo</label>
-              <input id="reserva-empresa" name="empresa" type="text" tabindex="-1" autocomplete="off" />
+            <div class="reserva__trampa" aria-hidden="true">
+              <label for="reserva-puerta-lateral">No llenes este campo</label>
+              <input id="reserva-puerta-lateral" name="puerta-lateral" type="text" tabindex="-1" autocomplete="off" data-1p-ignore data-lpignore="true" />
             </div>
 
             <div class="campo">
@@ -294,9 +295,9 @@
             <button class="boton reserva__enviar" type="submit">Enviar reserva</button>
           </form>
 
-          <div class="reservas__listo" tabindex="-1" hidden>
-            <h3></h3>
-            <p class="reservas__detalle"></p>
+          <div class="reservas__listo" role="group" aria-labelledby="reserva-listo" aria-describedby="reserva-detalle" tabindex="-1" hidden>
+            <h3 id="reserva-listo"></h3>
+            <p class="reservas__detalle" id="reserva-detalle"></p>
             <p>Como Contraluz no existe, nadie te va a llamar.</p>
             <button class="boton" type="button">Hacer otra reserva</button>
           </div>
@@ -305,7 +306,7 @@
 
       <section class="ubicacion" id="ubicacion" aria-labelledby="ubicacion-titulo">
         <div class="ubicacion__datos">
-          <h2 id="ubicacion-titulo">Ubicación</h2>
+          <h2 class="titulo-seccion" id="ubicacion-titulo">Ubicación</h2>
           <address class="ubicacion__direccion">Carrera 13 # 00-00<br />Chapinero, Bogotá</address>
           <p class="ubicacion__nota">La dirección es inventada, como el club.</p>
 

@@ -11,9 +11,20 @@ import { revelar } from "./js/modulos/revelar.js";
 import { iniciarUbicacion } from "./js/modulos/ubicacion.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
-iniciarUmbral();
-iniciarAgenda();
-iniciarResidentes();
-iniciarReservas();
-iniciarUbicacion();
-revelar(document.querySelector(".espacios__lista"));
+// Si un módulo falla, los demás arrancan igual: el HTML ya funciona sin ellos.
+const modulos = {
+  umbral: iniciarUmbral,
+  agenda: iniciarAgenda,
+  residentes: iniciarResidentes,
+  reservas: iniciarReservas,
+  ubicacion: iniciarUbicacion,
+  espacios: () => revelar(document.querySelector(".espacios__lista")),
+};
+
+for (const [nombre, iniciar] of Object.entries(modulos)) {
+  try {
+    iniciar();
+  } catch (error) {
+    console.error(`[contraluz] falló «${nombre}»`, error);
+  }
+}

@@ -16,9 +16,13 @@ function crearCruce(seccion) {
 
   function cruzar() {
     for (const animacion of animaciones) {
+      const tiempo = animacion.currentTime ?? 0;
+      const fin = animacion.effect.getComputedTiming().endTime;
       // Cambiar el sentido conserva el punto actual: se puede revertir a mitad de camino.
       animacion.playbackRate = adentro ? 1 : -VELOCIDAD_REGRESO;
-      animacion.play();
+      // Ya en el extremo de destino, play() rebobinaría hasta el otro: la escena saltaría entera.
+      if (adentro ? tiempo >= fin : tiempo <= 0) animacion.pause();
+      else animacion.play();
     }
   }
 
@@ -82,18 +86,19 @@ export function iniciarUmbral() {
   // arma, la posición cambia varias veces y el cruce queda yendo y viniendo a medias.
   history.scrollRestoration = "manual";
 
-  const reducir = window.matchMedia("(prefers-reduced-motion: reduce)");
+  // También sin cruce si la pantalla es muy baja (zoom al 400 %): la escena fija no cabe.
+  const sinCruce = window.matchMedia("(prefers-reduced-motion: reduce), (max-height: 22rem) and (max-width: 40rem)");
   const cruce = crearCruce(seccion);
 
   function aplicar() {
     cruce.desactivar();
-    document.documentElement.classList.toggle("umbral-viva", !reducir.matches);
-    if (reducir.matches) return;
+    document.documentElement.classList.toggle("umbral-viva", !sinCruce.matches);
+    if (sinCruce.matches) return;
 
     cruce.activar();
     prepararAdentro(seccion);
   }
 
   aplicar();
-  reducir.addEventListener("change", aplicar);
+  sinCruce.addEventListener("change", aplicar);
 }

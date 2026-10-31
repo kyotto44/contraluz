@@ -1,33 +1,27 @@
-// Cada residente muestra cuándo toca. La fecha sale de la agenda ya ordenada, así que este
-// módulo corre después de ella. Sin JavaScript, o sin una noche próxima, el enlace no aparece.
+// Cada residente muestra cuándo toca, según su nombre en las noches de la agenda.
+// Sin JavaScript, o sin una noche próxima, el enlace no aparece.
 
+import { suscribirNoches } from "./noches.js";
 import { revelar } from "./revelar.js";
 
-function cuandoToca(noche) {
-  const aviso = noche.querySelector(".noche__aviso")?.textContent;
-  if (aviso === "Esta noche") return "Toca esta noche";
-  if (aviso === "Mañana") return "Toca mañana";
-
-  const semana = noche.querySelector(".noche__semana").textContent;
-  const numero = noche.querySelector(".noche__numero").textContent;
-  const mes = noche.querySelector(".noche__mes").textContent;
-  return `Toca el ${semana} ${numero} ${mes}`;
+function cuandoToca({ faltan, semana, numero, mes }) {
+  if (faltan === 0) return "Toca esta noche";
+  if (faltan === 1) return "Toca mañana";
+  return `Toca el ${semana} ${numero} de ${mes}`;
 }
 
 export function iniciarResidentes() {
   const lista = document.querySelector(".residentes__lista");
   if (!lista) return;
 
-  const noches = [...document.querySelectorAll(".noche")];
-  for (const residente of lista.children) {
-    const nombre = residente.querySelector(".residente__nombre").textContent;
-    const noche = noches.find((n) => n.querySelector(".noche__titulo").textContent.includes(nombre));
-    if (!noche) continue;
-
-    const enlace = residente.querySelector(".residente__proxima");
-    enlace.textContent = cuandoToca(noche);
-    enlace.hidden = false;
-  }
+  suscribirNoches((noches) => {
+    for (const residente of lista.children) {
+      const noche = noches.find((n) => n.djs.includes(residente.dataset.dj));
+      const enlace = residente.querySelector(".residente__proxima");
+      enlace.hidden = !noche;
+      if (noche) enlace.textContent = cuandoToca(noche);
+    }
+  });
 
   revelar(lista);
 }

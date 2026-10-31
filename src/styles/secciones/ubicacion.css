@@ -2,7 +2,6 @@
    de los láseres. No es un mapa externo: la CSP no carga nada de otros dominios. */
 
 .ubicacion {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   display: grid;
   gap: var(--espacio-7);
   padding: var(--espacio-9) var(--borde);
@@ -19,11 +18,6 @@
 
 .ubicacion h2 {
   margin-bottom: var(--espacio-4);
-  font-size: var(--titulo-1);
-  font-weight: 900;
-  font-stretch: 75%;
-  line-height: 0.86;
-  text-transform: uppercase;
 }
 
 .ubicacion__direccion {

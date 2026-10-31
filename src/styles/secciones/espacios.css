@@ -1,7 +1,6 @@
 /* Espacios: un mosaico asimétrico en el que la foto manda. En el celular, una foto tras otra. */
 
 .espacios {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   padding-block: var(--espacio-9);
 }
 
@@ -10,14 +9,6 @@
   gap: var(--espacio-4);
   padding-inline: var(--borde);
   margin-bottom: var(--espacio-7);
-}
-
-.espacios__cabeza h2 {
-  font-size: var(--titulo-1);
-  font-weight: 900;
-  font-stretch: 75%;
-  line-height: 0.86;
-  text-transform: uppercase;
 }
 
 .espacios__cabeza p {

@@ -13,7 +13,6 @@
   --hielo: #e8ecf5;          /* texto principal */
   --hielo-suave: #aab3c7;    /* texto secundario sobre tinta (9,4:1) */
   --laser: #ff2d46;          /* la luz de la cabina */
-  --laser-hondo: #8a0f22;    /* la misma luz apagándose en la neblina */
   --laser-nucleo: #ffd6db;   /* el centro quemado de la luz */
   --sobre-laser: #06080f;    /* texto sobre rojo láser (5,4:1); el blanco no llega a 4,5:1 */
 
@@ -29,7 +28,6 @@
   --titulo-1: clamp(3rem, 1.6rem + 6vw, 6rem);
 
   /* Espacio: un solo ritmo para toda la página */
-  --espacio-1: 0.25rem;
   --espacio-2: 0.5rem;
   --espacio-3: 0.75rem;
   --espacio-4: 1rem;
@@ -39,6 +37,7 @@
   --espacio-8: 5rem;
   --espacio-9: 8rem;
   --margen: clamp(1rem, 0.5rem + 2.5vw, 3rem);
+  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   --ancho-max: 90rem;
   --medida: 65ch;
 
@@ -48,10 +47,8 @@
 
   /* Movimiento */
   --curva-salida: cubic-bezier(0.23, 1, 0.32, 1);     /* entradas y respuesta a la interacción */
-  --curva-recorrido: cubic-bezier(0.77, 0, 0.175, 1); /* algo que se mueve dentro de la pantalla */
   --dur-toque: 140ms;     /* presionar un botón */
   --dur-ui: 200ms;        /* hover, menús, cambios de estado */
-  --dur-revelado: 900ms;  /* una sección que entra a escena */
 
   /* Capas */
   --capa-cabecera: 10;

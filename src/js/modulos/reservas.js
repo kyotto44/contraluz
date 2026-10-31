@@ -1,6 +1,12 @@
 // El formulario llega en HTML y funciona solo: Netlify lo recibe y lleva a /gracias/.
 // Este módulo lo mejora: noches al día, errores claros y confirmación sin recargar la página.
 
+import { suscribirNoches } from "./noches.js";
+
+const TIEMPO_LIMITE = 15000; // con mala señal, el botón no puede quedarse en «Enviando…» para siempre
+const SIN_CONEXION = "No pudimos conectar, o la conexión tardó demasiado. Tus datos siguen aquí: inténtalo de nuevo.";
+const ERROR_SERVIDOR = "El servidor no pudo recibir tu reserva. Tus datos siguen aquí: inténtalo de nuevo.";
+
 const MENSAJES = {
   nombre: () => "Escribe tu nombre.",
   celular: (campo) => (campo.value.trim() ? "Revisa el número: debe verse como 300 123 4567." : "Escribe tu celular."),
@@ -31,18 +37,6 @@ function validar(campos) {
   return !primero;
 }
 
-// Copia a la lista las noches de la agenda, ya ordenadas y con sus fechas al día.
-function actualizarNoches(lista) {
-  const opciones = [...document.querySelectorAll(".noche")].map((noche) => {
-    const semana = noche.querySelector(".noche__semana").textContent;
-    const numero = noche.querySelector(".noche__numero").textContent;
-    const mes = noche.querySelector(".noche__mes").textContent;
-    const titulo = noche.querySelector(".noche__titulo").textContent;
-    return new Option(`${semana} ${numero} ${mes} · ${titulo}`, noche.querySelector(".noche__fecha").dateTime);
-  });
-  if (opciones.length) lista.replaceChildren(...opciones);
-}
-
 function textoConfirmacion(datos, fecha) {
   const personas = datos.get("personas") === "1" ? "1 persona" : `${datos.get("personas")} personas`;
   return datos.get("tipo") === "mesa"
@@ -59,21 +53,42 @@ export function iniciarReservas() {
   const enviar = formulario.querySelector(".reserva__enviar");
   const problema = formulario.querySelector(".reserva__problema");
   const listo = document.querySelector(".reservas__listo");
+  let noches = [];
   let enviando = false;
 
-  actualizarNoches(noche);
   formulario.noValidate = true;
+
+  // Copia las noches de la agenda. Si la que estaba elegida ya pasó, queda elegida la siguiente.
+  suscribirNoches((nuevas) => {
+    noches = nuevas;
+    if (!noches.length) return;
+    const elegida = noche.value;
+    noche.replaceChildren(...noches.map((n) => new Option(`${n.texto} · ${n.titulo}`, n.iso)));
+    noche.value = elegida;
+    if (noche.selectedIndex < 0) noche.selectedIndex = 0;
+  });
 
   // «Reservar» en una fila de la agenda deja esa noche ya elegida.
   document.querySelector(".agenda__lista")?.addEventListener("click", (evento) => {
     const fila = evento.target.closest(".boton")?.closest(".noche");
-    if (fila) noche.value = fila.querySelector(".noche__fecha").dateTime;
+    const elegida = noches.find((n) => n.fila === fila);
+    if (elegida) noche.value = elegida.iso;
+  });
+
+  // La ficha de la portada anuncia la próxima noche: su botón reserva esa.
+  document.querySelector(".ficha .boton")?.addEventListener("click", () => {
+    noche.selectedIndex = 0;
   });
 
   for (const campo of campos) {
     campo.addEventListener("input", () => {
       if (campo.hasAttribute("aria-invalid") && esValido(campo)) mostrarError(campo, null);
     });
+  }
+
+  function avisarProblema(mensaje) {
+    problema.textContent = mensaje;
+    problema.hidden = false;
   }
 
   formulario.addEventListener("submit", async (evento) => {
@@ -86,24 +101,29 @@ export function iniciarReservas() {
     enviar.setAttribute("aria-disabled", "true");
 
     const datos = new FormData(formulario);
-    const fecha = noche.selectedOptions[0].text.split(" · ")[0];
+    const nombre = datos.get("nombre").trim();
+    datos.set("nombre", nombre);
+    const fecha = noches.find((n) => n.iso === noche.value)?.texto ?? noche.selectedOptions[0].text;
 
     try {
       const respuesta = await fetch("/", {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: new URLSearchParams(datos).toString(),
+        signal: AbortSignal.timeout(TIEMPO_LIMITE),
       });
-      if (!respuesta.ok) throw new Error(String(respuesta.status));
+      if (!respuesta.ok) {
+        avisarProblema(ERROR_SERVIDOR);
+        return;
+      }
 
-      listo.querySelector("h3").textContent = `Listo, ${datos.get("nombre").trim()}`;
+      listo.querySelector("h3").textContent = `Listo, ${nombre}`;
       listo.querySelector(".reservas__detalle").textContent = textoConfirmacion(datos, fecha);
       formulario.hidden = true;
       listo.hidden = false;
       listo.focus();
     } catch {
-      problema.textContent = "No pudimos enviar tu reserva. Revisa tu conexión e inténtalo de nuevo: tus datos siguen aquí.";
-      problema.hidden = false;
+      avisarProblema(SIN_CONEXION);
     } finally {
       enviando = false;
       enviar.textContent = "Enviar reserva";

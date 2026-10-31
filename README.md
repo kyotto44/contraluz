@@ -1,6 +1,6 @@
 # Contraluz · Techno y house en Bogotá
 
-Sitio de una discoteca **ficticia** de Bogotá, hecho para mi portafolio. La idea sale del nombre: a contraluz, la gente se ve como silueta contra la luz de la cabina. El sitio se recorre como una entrada al club: con el scroll se atraviesa la puerta, las fotos se abren en capas y los láseres siguen el movimiento.
+Sitio de una discoteca **ficticia** de Bogotá, hecho para mi portafolio. La idea sale del nombre: a contraluz, la gente se ve como silueta contra la luz de la cabina. El sitio se recorre como una entrada al club: al bajar con el scroll, la puerta se atraviesa sola en 1,5 segundos y los láseres salen con ella; al subir, la escena se devuelve. Las fotos se abren en capas.
 
 > Contraluz no existe: las noches, los DJs, los precios, la dirección y el horario son de demostración.
 
@@ -58,6 +58,12 @@ npm run build
 npm run preview
 ```
 
+Para correr las pruebas de fechas y horario:
+
+```bash
+npm test
+```
+
 ## Fotos
 
 Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificados. Los originales no se suben al repositorio; `npm run fotos` los descarga si faltan.
@@ -76,6 +82,7 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 - En Vite, toda variable con prefijo `VITE_` queda dentro del JavaScript público. Una clave secreta nunca lleva ese prefijo: se guarda en las variables de entorno de Netlify y se usa desde una función del lado del servidor.
 - `.npmrc` fija versiones exactas y no ejecuta scripts de instalación de paquetes de terceros.
 - `netlify.toml` define la CSP y las cabeceras de seguridad (sin iframes, sin adivinar tipos de archivo, HTTPS siempre).
+- Nada se incrusta como `data:`: `vite.config.js` pone `assetsInlineLimit` en 0, y la CSP solo permite imágenes del propio sitio (`img-src 'self'`).
 
 ## Arquitectura
 
@@ -90,12 +97,15 @@ contraluz/
 │   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
-│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), residentes.js, reservas.js, ubicacion.js, revelar.js
+│   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), noches.js (lee las noches del HTML),
+│   │                       fechas.js (cuentas de días y horario), residentes.js, reservas.js, ubicacion.js, revelar.js
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css
 │       ├── componentes/    Piezas reutilizables (cabecera…)
 │       └── secciones/      Una hoja por sección de la página
+├── test/
+│   └── fechas.test.js      Pruebas de fechas y horario (npm test)
 ├── PRODUCT.md              Para quién es y qué debe lograr
 ├── netlify.toml            Publicación y cabeceras de seguridad
 ├── .env.example            Plantilla de variables (sin valores)

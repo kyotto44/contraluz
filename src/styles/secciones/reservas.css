@@ -2,7 +2,6 @@
    Debajo, un formulario tranquilo: se llena de noche, con el celular en una mano. */
 
 .reservas {
-  --borde: max(var(--margen), (100% - var(--ancho-max)) / 2);
   padding-bottom: var(--espacio-9);
 }
 
@@ -23,6 +22,8 @@
   position: absolute;
   top: 5.5rem; /* libra la cabecera fija */
   left: var(--borde);
+  right: var(--borde); /* con más espaciado de letras se parte en vez de recortarse */
+  overflow-wrap: anywhere;
   font-size: min(23cqi, 13rem);
   font-weight: 900;
   font-stretch: 62%;
@@ -123,7 +124,7 @@
   appearance: none;
   padding-right: var(--espacio-7);
   text-overflow: ellipsis;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' fill='none' stroke='%23e8ecf5' stroke-width='2'%3E%3Cpath d='m1 1 5 5 5-5'/%3E%3C/svg%3E");
+  background-image: url("../../assets/flecha-select.svg");
   background-repeat: no-repeat;
   background-position: right var(--espacio-4) center;
 }
