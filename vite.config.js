@@ -12,6 +12,7 @@ export default defineConfig({
       input: {
         inicio: resolve(import.meta.dirname, "index.html"),
         gracias: resolve(import.meta.dirname, "gracias/index.html"),
+        perdida: resolve(import.meta.dirname, "404.html"),
       },
     },
   },

@@ -1,0 +1,144 @@
+/* Página no encontrada (404).
+   Una puerta cerrada: la luz del club solo se cuela por la rendija y por debajo. */
+
+.perdida {
+  display: grid;
+  align-content: center;
+  gap: var(--espacio-8);
+  min-height: 100svh;
+  padding: var(--espacio-7) var(--margen) calc(var(--espacio-8) + env(safe-area-inset-bottom, 0px));
+  overflow: hidden;
+}
+
+.perdida__texto {
+  display: grid;
+  justify-items: start;
+  gap: var(--espacio-5);
+}
+
+.perdida h1 {
+  font-size: var(--titulo-1);
+  font-weight: 900;
+  font-stretch: 75%;
+  text-transform: uppercase;
+}
+
+.perdida p {
+  max-width: 34rem;
+  color: var(--hielo-suave);
+}
+
+.perdida__acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--espacio-3) var(--espacio-6);
+  margin-top: var(--espacio-3);
+}
+
+/* Va sola junto al botón: necesita su propio alto para el dedo. */
+.perdida__enlace {
+  display: inline-block;
+  padding-block: var(--espacio-3);
+  font-weight: 600;
+  transition: color var(--dur-ui) ease;
+}
+
+/* ---------- La puerta ---------- */
+
+.perdida__puerta {
+  position: relative;
+  order: -1;
+  justify-self: center;
+  height: min(42svh, 24rem);
+  aspect-ratio: 9 / 20;
+  /* El umbral es una línea de luz quemada: ahí la puerta no llega al piso. */
+  background: linear-gradient(to top, var(--laser-nucleo) 2px, transparent 2px), var(--tinta-alta);
+  border: var(--linea) solid var(--tinta-linea);
+  border-bottom: 0;
+}
+
+/* La luz que sale por debajo se abre sobre el piso. */
+.perdida__puerta::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: -70%;
+  right: -70%;
+  height: 45%;
+  background:
+    radial-gradient(ellipse 40% 100% at 72% 0, rgb(255 45 70 / 0.5), transparent),
+    linear-gradient(rgb(255 45 70 / 0.42), rgb(255 45 70 / 0));
+  /* El borde de arriba mide lo mismo que la puerta: 1 / 2,4 del ancho total. */
+  clip-path: polygon(29.17% 0, 70.83% 0, 100% 100%, 0 100%);
+  animation: perdida-piso 1.8s var(--curva-salida) 0.2s both;
+}
+
+/* La rendija: la puerta quedó entreabierta del lado derecho. */
+.perdida__rendija {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -2px;
+  width: 3px;
+  background: linear-gradient(var(--laser-nucleo), var(--laser) 18%);
+  transform-origin: bottom;
+  animation: perdida-rendija 1.6s var(--curva-salida) both;
+}
+
+/* El resplandor de la rendija sobre el marco y la pared. */
+.perdida__rendija::after {
+  content: "";
+  position: absolute;
+  inset: 0 -1.25rem;
+  background: var(--laser);
+  opacity: 0.4;
+  filter: blur(1.25rem);
+}
+
+@keyframes perdida-rendija {
+  from {
+    opacity: 0.2;
+    transform: scaleY(0.06);
+  }
+}
+
+@keyframes perdida-piso {
+  from {
+    opacity: 0;
+  }
+}
+
+@media (min-width: 48rem) {
+  .perdida {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+    padding-inline: var(--borde);
+  }
+
+  .perdida__puerta {
+    order: 0;
+    height: min(68svh, 38rem);
+    margin-right: clamp(0rem, 6vw, 8rem);
+  }
+}
+
+/* Celular en horizontal: la puerta cede su espacio al texto. */
+@media (max-height: 30rem) and (max-width: 48rem) {
+  .perdida__puerta {
+    display: none;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .perdida__enlace:hover {
+    color: var(--laser-nucleo);
+  }
+}
+
+/* Reducir movimiento: la luz se enciende sin crecer. */
+@media (prefers-reduced-motion: reduce) {
+  .perdida__rendija {
+    animation-name: perdida-piso;
+  }
+}
