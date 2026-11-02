@@ -9,7 +9,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "node --test",
-    "fotos": "node scripts/preparar-fotos.mjs"
+    "fotos": "node scripts/preparar-fotos.mjs",
+    "compartir": "node scripts/preparar-compartir.mjs"
   },
   "engines": {
     "node": ">=20.19"

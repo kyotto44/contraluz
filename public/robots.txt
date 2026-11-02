@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://contraluz-bogota.netlify.app/sitemap.xml
