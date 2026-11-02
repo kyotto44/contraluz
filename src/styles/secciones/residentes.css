@@ -74,7 +74,8 @@
 
 /* Cabe a todo el ancho del celular, como el nombre del club en la portada. */
 .residente__nombre {
-  font-size: min(25cqi, 11rem);
+  /* --ajuste lo pone residentes.js cuando la palabra más larga no cabe. */
+  font-size: calc(min(25cqi, 11rem) * var(--ajuste, 1));
   font-weight: 900;
   font-stretch: 62%;
   line-height: 0.95;
@@ -84,6 +85,11 @@
   overflow-wrap: anywhere;
   transform-origin: left;
   transition: color var(--dur-ui) ease, transform 400ms var(--curva-salida);
+}
+
+.residente__nombre--midiendo {
+  width: min-content;
+  overflow-wrap: normal;
 }
 
 .residente__datos {
@@ -120,7 +126,7 @@
   }
 
   .residente__nombre {
-    font-size: min(13cqi, 11rem);
+    font-size: calc(min(13cqi, 11rem) * var(--ajuste, 1));
   }
 }
 

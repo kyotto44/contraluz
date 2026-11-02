@@ -21,7 +21,30 @@ function actualizarFicha({ aviso, texto, titulo, genero, precio }) {
   ficha.querySelector(".ficha__datos").textContent = `${genero}. Puerta a las ${PUERTA} ${precio}.`;
 }
 
+// Si el HTML no trae noches (el club está en pausa), la portada y la agenda lo dicen
+// en vez de mostrar una noche vieja.
+function mostrarSinNoches(lista) {
+  if (!lista.nextElementSibling?.matches(".agenda__vacia")) {
+    const aviso = document.createElement("p");
+    aviso.className = "agenda__vacia";
+    aviso.textContent = "No hay noches programadas por ahora. Las próximas fechas aparecen aquí.";
+    lista.after(aviso);
+  }
+
+  const ficha = document.querySelector(".ficha");
+  if (!ficha) return;
+  ficha.querySelector(".ficha__fecha").textContent = "Sin noches programadas";
+  ficha.querySelector(".ficha__titulo").textContent = "Pronto, nuevas fechas";
+  ficha.querySelector(".ficha__datos").textContent = `Techno y house de jueves a sábado, desde las ${PUERTA}`;
+  ficha.querySelector(".boton").hidden = true;
+}
+
 function pintar(lista, etiqueta, noches) {
+  if (!noches.length) {
+    mostrarSinNoches(lista);
+    return;
+  }
+
   const enfocado = document.activeElement;
   noches.forEach((noche, orden) => {
     escribirFila(noche);
@@ -33,7 +56,6 @@ function pintar(lista, etiqueta, noches) {
   if (document.activeElement !== enfocado && lista.contains(enfocado)) enfocado.focus({ preventScroll: true });
 
   const [proxima] = noches;
-  if (!proxima) return;
   etiqueta.textContent = proxima.aviso;
   proxima.fila.querySelector(".noche__cartel").prepend(etiqueta);
   actualizarFicha(proxima);

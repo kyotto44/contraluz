@@ -15,6 +15,11 @@
   transition: transform var(--dur-toque) var(--curva-salida), background-color var(--dur-ui) ease;
 }
 
+/* [hidden] pierde contra el display de arriba: se asegura aquí. */
+.boton[hidden] {
+  display: none;
+}
+
 /* Responde al apoyar el dedo, no al soltarlo. */
 .boton:active {
   transform: scale(0.97);

@@ -26,6 +26,14 @@
   }
 }
 
+/* Solo aparece si no hay noches en el HTML. */
+.agenda__vacia {
+  padding: var(--espacio-6) var(--borde) var(--espacio-8);
+  border-top: var(--linea) solid var(--tinta-linea);
+  font-size: var(--texto-grande);
+  color: var(--hielo-suave);
+}
+
 .noche {
   position: relative;
   display: grid;
@@ -85,6 +93,8 @@
   font-stretch: 125%;
   line-height: 1.05;
   overflow-wrap: anywhere;
+  /* Una palabra larga se parte con guion, por sílabas, antes que en cualquier letra. */
+  hyphens: auto;
 }
 
 .noche__datos {

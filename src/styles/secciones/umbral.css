@@ -139,8 +139,10 @@
   overflow: hidden;
   font-size: var(--titulo-3);
   font-stretch: 125%;
-  line-height: 1.05;
+  /* Con menos interlineado, las letras altas de la tercera línea se asoman bajo el corte. */
+  line-height: 1.2;
   overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 .ficha__datos {

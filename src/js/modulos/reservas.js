@@ -61,7 +61,13 @@ export function iniciarReservas() {
   // Copia las noches de la agenda. Si la que estaba elegida ya pasó, queda elegida la siguiente.
   suscribirNoches((nuevas) => {
     noches = nuevas;
-    if (!noches.length) return;
+    // Sin noches no hay qué reservar: el formulario lo dice en vez de quedar con la lista vacía.
+    if (!noches.length) {
+      noche.replaceChildren(new Option("No hay noches programadas", ""));
+      noche.disabled = true;
+      enviar.hidden = true;
+      return;
+    }
     const elegida = noche.value;
     noche.replaceChildren(...noches.map((n) => new Option(`${n.texto} · ${n.titulo}`, n.iso)));
     noche.value = elegida;

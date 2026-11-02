@@ -11,6 +11,9 @@ import { revelar } from "./js/modulos/revelar.js";
 import { iniciarUbicacion } from "./js/modulos/ubicacion.js";
 import { iniciarUmbral } from "./js/modulos/umbral.js";
 
+// Solo en desarrollo: ?datos=peor cambia los datos del HTML por casos difíciles.
+if (import.meta.env.DEV) await import("./js/dev/peor-caso.js");
+
 // Si un módulo falla, los demás arrancan igual: el HTML ya funciona sin ellos.
 const modulos = {
   umbral: iniciarUmbral,
