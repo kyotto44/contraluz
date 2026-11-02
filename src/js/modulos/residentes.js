@@ -28,14 +28,18 @@ export function iniciarResidentes() {
   const lista = document.querySelector(".residentes__lista");
   if (!lista) return;
 
+  // Medir obliga a recalcular la página: se mide una vez con las fuentes listas,
+  // y otra solo si cambia el ancho (girar el celular, cambiar el tamaño de la ventana).
   const nombres = [...lista.querySelectorAll(".residente__nombre")];
-  let pendiente = 0;
-  const ajustar = () => {
-    cancelAnimationFrame(pendiente);
-    pendiente = requestAnimationFrame(() => ajustarNombres(nombres));
-  };
-  new ResizeObserver(ajustar).observe(lista);
-  document.fonts.ready.then(ajustar);
+  let ancho = 0;
+  document.fonts.ready.then(() => {
+    new ResizeObserver(([entrada]) => {
+      const nuevo = Math.round(entrada.contentRect.width);
+      if (nuevo === ancho) return;
+      ancho = nuevo;
+      ajustarNombres(nombres);
+    }).observe(lista);
+  });
 
   suscribirNoches((noches) => {
     for (const residente of lista.children) {
