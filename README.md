@@ -4,9 +4,11 @@ Sitio de una discoteca **ficticia** de Bogotá, hecho para mi portafolio. La ide
 
 > Contraluz no existe: las noches, los DJs, los precios, la dirección y el horario son de demostración.
 
+**En vivo:** [contraluz-bogota.netlify.app](https://contraluz-bogota.netlify.app)
+
 ## Estado
 
-En construcción, módulo por módulo. Cada módulo queda en su propio commit.
+Terminado. Se construyó módulo por módulo, y cada módulo quedó en su propio commit.
 
 - [x] Base del proyecto: Vite, fuentes autoalojadas, tokens de diseño y configuración segura.
 - [x] Entrada: con el scroll se cruza la puerta y aparece la pista.
@@ -15,6 +17,17 @@ En construcción, módulo por módulo. Cada módulo queda en su propio commit.
 - [x] Espacios: mosaico de fotos con el patio, la barra y el sonido.
 - [x] Reservas: formulario con Netlify Forms, con y sin JavaScript.
 - [x] Ubicación, horario y pie: dirección inventada, mapa propio y aviso de si el club está abierto.
+- [x] Página 404: una puerta cerrada, con la luz del club colándose por la rendija.
+- [x] Vista previa al compartir el enlace, `robots.txt` y `sitemap.xml`.
+- [x] Prueba con datos difíciles y sistema de diseño documentado en `DESIGN.md`.
+
+## Datos difíciles
+
+El sitio se probó con datos que rompen diseños: nombres largos con guion y tildes, uno de dos letras, títulos de una línea entera, entrada libre, una sola noche y ninguna. Con `npm run dev`, agrega `?datos=peor`, `?datos=una` o `?datos=vacia` a la dirección; abajo aparece un selector para cambiar entre ellos. Solo existe en desarrollo y no llega al sitio publicado.
+
+- Un nombre de residente que no cabe achica su letra en vez de partirse a mitad de palabra.
+- Los títulos largos de la agenda se parten por sílabas con guion.
+- Sin noches en el HTML, la portada, la agenda y el formulario lo dicen, en vez de mostrar una fecha vieja.
 
 ## La entrada
 
@@ -90,15 +103,20 @@ Fotos de [Unsplash](https://unsplash.com/license), con color y recorte modificad
 contraluz/
 ├── index.html              Página principal
 ├── gracias/                Página tras reservar sin JavaScript
+├── 404.html                Página no encontrada (Netlify la sirve sola)
 ├── public/
 │   ├── favicon.svg
 │   └── imagenes/           Fotos procesadas (WebP)
 ├── scripts/
-│   └── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
+│   ├── preparar-fotos.mjs  Aplica la luz del club a las fotos originales
+│   ├── preparar-compartir.mjs  Dibuja la imagen para compartir el enlace (npm run compartir)
+│   └── compartir/          Plantilla de esa imagen
 ├── src/
 │   ├── main.js             Punto de entrada: fuentes, estilos y módulos
+│   ├── pagina-suelta.js    Fuentes y estilos para gracias y 404
 │   ├── js/modulos/         umbral.js (el cruce), agenda.js (las fechas), noches.js (lee las noches del HTML),
 │   │                       fechas.js (cuentas de días y horario), residentes.js, reservas.js, ubicacion.js, revelar.js
+│   ├── js/dev/             peor-caso.js: datos difíciles, solo en desarrollo
 │   └── styles/
 │       ├── main.css        Orden de importación
 │       ├── base/           tokens.css, reset.css, global.css
@@ -107,6 +125,7 @@ contraluz/
 ├── test/
 │   └── fechas.test.js      Pruebas de fechas y horario (npm test)
 ├── PRODUCT.md              Para quién es y qué debe lograr
+├── DESIGN.md               Sistema de diseño: colores, letra, formas y reglas
 ├── netlify.toml            Publicación y cabeceras de seguridad
 ├── .env.example            Plantilla de variables (sin valores)
 └── .npmrc                  Versiones exactas, sin scripts de instalación
